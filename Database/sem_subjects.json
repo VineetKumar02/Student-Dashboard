@@ -1,0 +1,274 @@
+{
+  "I": [
+    {
+      "course": "Communicative English",
+      "credits": 3
+    },
+    {
+      "course": "Algebra and Calculus",
+      "credits": 4
+    },
+    {
+      "course": "Engineering Physics",
+      "credits": 3
+    },
+    {
+      "course": "Engineering Chemistry",
+      "credits": 3
+    },
+    {
+      "course": "Problem Solving and Programming in Python",
+      "credits": 3
+    },
+    {
+      "course": "Engineering Graphics",
+      "credits": 3
+    },
+    {
+      "course": "Programming in Python Lab",
+      "credits": 1.5
+    },
+    {
+      "course": "Physics and Chemistry Lab",
+      "credits": 2
+    }
+  ],
+  "II": [
+    {
+      "course": "Technical English",
+      "credits": 3
+    },
+    {
+      "course": "Complex Functions and Laplace Transforms",
+      "credits": 4
+    },
+    {
+      "course": "Physics for Information Science",
+      "credits": 3
+    },
+    {
+      "course": "Environmental Science",
+      "credits": 3
+    },
+    {
+      "course": "Basic Electrical, Electronics and Measurement Engineering",
+      "credits": 3.5
+    },
+    {
+      "course": "Fundamentals of C Programming",
+      "credits": 3.5
+    },
+    {
+      "course": "Design Thinking and Engineering Practices Lab",
+      "credits": 1.5
+    },
+    {
+      "course": "C Programming Lab",
+      "credits": 1.5
+    }
+  ],
+  "III": [
+    {
+      "course": "Discrete Mathematics",
+      "credits": 4
+    },
+    {
+      "course": "Digital Electronics",
+      "credits": 4
+    },
+    {
+      "course": "Fundamentals of Data Structures",
+      "credits": 3
+    },
+    {
+      "course": "Principles of Analog and Digital Communication",
+      "credits": 3
+    },
+    {
+      "course": "Database Management Systems and Applications",
+      "credits": 3
+    },
+    {
+      "course": "Computer Organization",
+      "credits": 3
+    },
+    {
+      "course": "Programming and Data Structures Lab - I",
+      "credits": 2
+    },
+    {
+      "course": "Database Management Systems and Applications Lab",
+      "credits": 2
+    }
+  ],
+  "IV": [
+    {
+      "course": "Probability and Statistics",
+      "credits": 4
+    },
+    {
+      "course": "Principles of Software Engineering",
+      "credits": 3
+    },
+    {
+      "course": "Information Theory and Applications",
+      "credits": 3
+    },
+    {
+      "course": "Microprocessors and Microcontrollers",
+      "credits": 3
+    },
+    {
+      "course": "Advanced Data Structures",
+      "credits": 3
+    },
+    {
+      "course": "Algorithm Design and Analysis",
+      "credits": 3
+    },
+    {
+      "course": "Microprocessor and Microcontroller Lab",
+      "credits": 2
+    },
+    {
+      "course": "Programming and Data Structures Lab - II",
+      "credits": 2
+    }
+  ],
+  "V": [
+    {
+      "course": "Finite Automata Theory",
+      "credits": 3
+    },
+    {
+      "course": "Principles of Operating Systems",
+      "credits": 3
+    },
+    {
+      "course": "Computer Networks and Its Applications",
+      "credits": 4
+    },
+    {
+      "course": "Introduction to Digital Signal Processing",
+      "credits": 4
+    },
+    {
+      "course": "Artificial Intelligence Concepts and Algorithms",
+      "credits": 3
+    },
+    {
+      "course": "Professional Elective I",
+      "credits": 3
+    },
+    {
+      "course": "Software Design Lab",
+      "credits": 2
+    },
+    {
+      "course": "Operating Systems Lab",
+      "credits": 2
+    }
+  ],
+  "VI": [
+    {
+      "course": "Principles of Compiler Design",
+      "credits": 4
+    },
+    {
+      "course": "Web Programming",
+      "credits": 3
+    },
+    {
+      "course": "Big Data Engineering",
+      "credits": 3
+    },
+    {
+      "course": "Machine Learning Fundamentals",
+      "credits": 4
+    },
+    {
+      "course": "Professional Elective II",
+      "credits": 3
+    },
+    {
+      "course": "Open Elective I",
+      "credits": 3
+    },
+    {
+      "course": "Interpersonal Skills/Listening & Speaking Lab",
+      "credits": 1
+    },
+    {
+      "course": "Web Programming Lab",
+      "credits": 2
+    }
+  ],
+  "VII": [
+    {
+      "course": "Management Principles and Practices",
+      "credits": 3
+    },
+    {
+      "course": "Cloud Computing and Virtualization",
+      "credits": 3
+    },
+    {
+      "course": "Network Security",
+      "credits": 3
+    },
+    {
+      "course": "Open Elective II",
+      "credits": 3
+    },
+    {
+      "course": "Professional Elective III",
+      "credits": 3
+    },
+    {
+      "course": "Professional Elective IV",
+      "credits": 3
+    },
+    {
+      "course": "Mobile Application Development Lab",
+      "credits": 2
+    },
+    {
+      "course": "Professional Communication Lab",
+      "credits": 1
+    }
+  ],
+  "VIII": [
+    {
+      "course": "Professional Elective V",
+      "credits": 3
+    },
+    {
+      "course": "Professional Elective VI",
+      "credits": 3
+    },
+    {
+      "course": "Project Work",
+      "credits": 10
+    }
+  ],
+  "theory_count": [
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    2
+  ],
+  "sem_credits": [
+    22,
+    23,
+    24,
+    23,
+    24,
+    23,
+    21,
+    16
+  ]
+}

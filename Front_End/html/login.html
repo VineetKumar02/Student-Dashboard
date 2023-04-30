@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script> -->
+
+  <!-- For Icon logo -->
+  <link rel="icon" type="image/x-icon" href="../images/ssn.png">
+
+  <!-- For Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="../css/login.css" />
+  <link rel="stylesheet" href="../css/toast.css" />
+
+  <!-- AngularJS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+  <title>Login/Sign Up Page</title>
+</head>
+
+<body ng-app="myApp">
+  <div class="container">
+    <div class="forms-container">
+      <div class="signin-signup">
+
+        <!-- Login Form -->
+        <form name="signInForm" ng-submit="submitSignInForm()" class="sign-in-form glass-container"
+          ng-controller="signInController" novalidate>
+
+          <img class="ssn-logo" src="../images/ssn-logo.png" alt="ssn logo" />
+          <h2 class="title">Sign in</h2>
+
+          <div class="input-field">
+            <i class="fa-solid fa-id-card"></i>
+            <input type="tel" ng-model="digitalid" id="login-digitalid" name="signin_digitalid" placeholder="Digital ID"
+              autocomplete="cc-number" ng-pattern="/^[0-9]{7,7}$/" required />
+          </div>
+          <div ng-show="formSubmitted && signInForm.signin_digitalid.$invalid" class="error">**Digital ID
+            must be 7 digit number</div>
+
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" ng-model="pass1" id="pass1" name="pass1" placeholder="Password" ng-minlength="8"
+              required />
+            <i class="fa-solid fa-eye-slash" id="pass-toggle1"></i>
+          </div>
+          <div ng-show="formSubmitted && signInForm.pass1.$invalid" class="error">**Password
+            must be atleast 8 characters</div>
+
+          <input type="submit" value="Login" class="btn solid" />
+
+        </form>
+
+        <!-- SignUp Form  -->
+        <form name="signUpForm" ng-submit="submitSignUpForm()" class="sign-up-form glass-container"
+          ng-controller="signUpController" novalidate>
+
+          <img class="ssn-logo" src="../images/ssn-logo.png" alt="ssn logo" />
+          <h2 class="title">Sign up</h2>
+
+          <div class="input-field">
+            <i class="fa-solid fa-id-card"></i>
+            <input type="tel" ng-model="digitalid" id="signup-digitalid" name="signup_digitalid"
+              placeholder="Digital ID" autocomplete="cc-number" ng-pattern="/^[0-9]{7,7}$/" required />
+          </div>
+          <div ng-show="formSubmitted && signUpForm.signup_digitalid.$invalid" class="error">**Digital ID
+            must be 7 digit number</div>
+
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" ng-model="pass2" id="pass2" name="pass2" placeholder="Password" ng-minlength="8"
+              required />
+            <i class="fa-solid fa-eye-slash" id="pass-toggle2"></i>
+          </div>
+          <div ng-show="formSubmitted && signUpForm.pass2.$invalid" class="error">**Password
+            must be atleast 8 characters</div>
+
+          <div class="input-field">
+            <i class="fas fa-lock"></i>
+            <input type="password" ng-model="pass3" id="pass3" name="pass3" placeholder="Confirm Password"
+              compare-to="pass2" required />
+            <i class="fa-solid fa-eye-slash" id="pass-toggle3"></i>
+          </div>
+          <div ng-show="formSubmitted && signUpForm.pass3.$error.compareTo" class="error">**Passwords Don't Match</div>
+          <input type="submit" class="btn" value="Sign up" />
+
+        </form>
+
+      </div>
+    </div>
+
+    <div class="panels-container">
+
+      <!-- Login Page Design  -->
+      <div class="panel left-panel">
+        <div class="content">
+          <h3>Haven't Made an Account ?</h3>
+          <p>
+            Then tap on the sign up button
+          </p>
+          <button class="btn transparent" id="sign-up-btn">
+            Sign up
+          </button>
+        </div>
+        <img src="../images/login.png" class="image log-in-image" alt="" />
+      </div>
+
+      <!-- SignUp Page Design  -->
+      <div class="panel right-panel">
+        <div class="content">
+          <h3>Already Have an Account ?</h3>
+          <p>
+            Then tap on the sign in button
+          </p>
+          <button class="btn transparent" id="sign-in-btn">
+            Sign in
+          </button>
+        </div>
+        <img src="../images/signup.png" class="image sign-in-image" alt="" />
+      </div>
+
+    </div>
+  </div>
+
+  <!-- The Toast Notification -->
+  <div class="toast success">
+    <div class="toast-content">
+      <i class="fa-solid fa-check"></i>
+
+      <div class="message">
+        <span class="text text-1">Success</span>
+        <span id="message" class="text text-2"></span>
+      </div>
+    </div>
+    <i class="fa-solid fa-xmark close"></i>
+
+    <div class="progress progressfull"></div>
+  </div>
+
+  <div class="toast error">
+    <div class="toast-content">
+      <i class="fa-solid fa-xmark"></i>
+
+      <div class="message">
+        <span class="text text-1">Error</span>
+        <span class="text text-2"></span>
+      </div>
+    </div>
+    <i class="fa-solid fa-xmark close"></i>
+
+    <div class="progress"></div>
+  </div>
+
+</body>
+
+<script src="../js/toast.js"></script>
+<script src="../js/login.js"></script>
+
+</html>

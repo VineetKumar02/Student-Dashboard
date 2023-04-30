@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- For Icon logo -->
+    <link rel="icon" type="image/x-icon" href="../images/ssn.png">
+
+    <!-- For Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/cgpa.css" />
+    <link rel="stylesheet" href="../css/animation.css" />
+    <link rel="stylesheet" href="../css/nav-styles.css" />
+    <link rel="stylesheet" href="../css/toast.css" />
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+
+    <title>GPA/CGPA Calculator</title>
+</head>
+
+<body ng-app="myApp" ng-controller="calculatorController">
+
+    <!-- The Vertical Navbar -->
+    <nav class="sidebar">
+        <div class="toggle">
+            <i class="fa-solid fa-angles-right"></i>
+        </div>
+        <div class="logo">
+            <img src="../images/ssn-logo.png" alt="ssn logo">
+        </div>
+        <div class="nav-title">
+            <h3>SSNCE</h3>
+            Student DashBoard
+        </div>
+        <ul>
+            <li class="nav-item">
+                <a href="../html/dashboard.html?digitalid={{digitalid}}"> <i class="fa-solid fa-house-chimney"></i>
+                    <span>DashBoard</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a href="../html/cgpa.html?digitalid={{digitalid}}"><i class="fa-solid fa-calculator"></i>
+                    <span>GPA Calculator</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../html/about.html?digitalid={{digitalid}}"><i class="fa-solid fa-circle-question"></i>
+                    <span>Calculation Steps</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../html/settings.html?digitalid={{digitalid}}"><i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+        <hr>
+        <ul>
+            <li class="nav-item log-out">
+                <a href="../html/login.html"><i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Log Out</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <div id="app">
+
+        <!-- Main Content box -->
+        <div class="content">
+
+            <!-- Text on Top -->
+            <div>
+                <h1 class="top">GPA Calculator</h1>
+                <h3 class="top"></h3>
+            </div>
+
+            <!-- Main1 : Semester CGPA calculation
+            Block is used bcoz this shld be displayed by default -->
+            <div class="container" ng-show="showGpa">
+
+                <!-- To select the semester -->
+                <div class="semester">
+                    <span>SEMESTER</span>
+                    <select ng-model="semester" ng-change="updateSubjects()" required>
+                        <option value="I">Semester 1</option>
+                        <option value="II">Semester 2</option>
+                        <option value="III">Semester 3</option>
+                        <option value="IV">Semester 4</option>
+                        <option value="V">Semester 5</option>
+                        <option value="VI">Semester 6</option>
+                        <option value="VII">Semester 7</option>
+                        <option value="VIII">Semester 8</option>
+                    </select>
+                </div>
+
+                <!-- To select the Calculation method Sem CGPA is set as active-->
+                <div class="selection">
+                    <button ng-click="showGpaLayout()" class="active">Semester GPA</button>
+                    <button ng-click="showCgpaLayout()">Cumulative GPA</button>
+                </div>
+                <br>
+
+                <form name="gpaForm" ng-submit="calculateGPA()">
+                    <!-- Table area for Main1 - Subject name, scores -->
+                    <table class="course-list">
+                        <thead>
+                            <tr class="course-heading">
+                                <th>Subjects</td>
+                                <th style="width: 15%;">Credits</td>
+                                <th>Select Grade:</td>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr class="course" ng-repeat="subject in subjects">
+                                <td class="name" style="text-align: left;">{{subject.course}}</td>
+
+                                <td>{{subject.credits}}</td>
+
+                                <td>
+                                    <select name="grade{{$index+1}}" ng-model="grade[$index]" required>
+                                        <option value="" selected disabled hidden>--Select--</option>
+                                        <option value=10>O</option>
+                                        <option value=9>A+</option>
+                                        <option value=8>A</option>
+                                        <option value=7>B+</option>
+                                        <option value=6>B</option>
+                                        <option value=0>RA</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- The buttons on Main1 -->
+                    <div class="buttons">
+                        <input type="submit" value="Calculate GPA">
+                        <input type="reset" value="Reset" ng-click="reset()">
+                    </div>
+                </form>
+
+                <!-- To display the result on Main1 page -->
+                <div class="displayresult" ng-show="showGPAResult">
+                    <span class="result-text">Your CGPA is: </span>
+                    <div>
+                        <span class="blueresult">{{gpa_result}}</span>
+                        <span class="result-text">/10</span>
+                    </div>
+                </div>
+
+                <!-- The Popup for Main1 -->
+                <div class="popup" ng-class="{ 'open-popup': isPopup1_Open }">
+                    <!-- <div class="popup" ng-class="{ 'open-popup': true }"> -->
+                    <img src="../images/tick.png" alt="Green Tick">
+                    <h2>Your CGPA is</h2>
+                    <div>
+                        <span class="pop-up-result">{{gpa_result}}</span>
+                        <span class="result-text">/10</span><br><br>
+                    </div>
+                    <button type="submit" ng-click="updateGPA()">Update Your Sem {{semester}} GPA</button>
+                    <button type="button" ng-click="closePopup1()">Close</button>
+                </div>
+
+            </div>
+
+
+
+            <!-- Main2 : Cumilative CGPA calculation -->
+            <div class="container" ng-show="showCgpa">
+
+                <!-- Select the semesters completed -->
+                <div class="semester">
+                    <span>Semesters Completed</span>
+                    <select ng-model="semdone" required>
+                        <option ng-value=1>1 Done</option>
+                        <option ng-value=2>2 Done</option>
+                        <option ng-value=3>3 Done</option>
+                        <option ng-value=4>4 Done</option>
+                        <option ng-value=5>5 Done</option>
+                        <option ng-value=6>6 Done</option>
+                        <option ng-value=7>7 Done</option>
+                        <option ng-value=8>8 Done</option>
+                    </select>
+                </div>
+
+                <!-- Selection of Calculation Mode - CGPA is set to active -->
+                <div class="selection">
+                    <button ng-click="showGpaLayout()">Semester GPA</button>
+                    <button ng-click="showCgpaLayout()" class="active">Cumulative GPA</button>
+                </div>
+                <br>
+
+                <form name="cgpaForm" ng-submit="calculateCGPA()">
+                    <!-- List of semesters -->
+                    <div class="sem-list">
+
+                        <div class="sem-data" ng-repeat="i in [1, 2, 3, 4, 5, 6, 7, 8] | limitTo: semdone">
+                            <p>Semester {{i}}</p>
+                            <p>Credits : {{sem_credits[$index]}}</p>
+                            <input id="cgpasem{{i}}" type="number" ng-model="student.sem_gpa[$index]"
+                                placeholder="GPA of Sem {{i}}" max="10" min="0" step="0.01" required>
+                        </div>
+
+                    </div>
+
+                    <!-- The buttons on Main2 -->
+                    <div class="buttons">
+                        <input type="submit" value="Calculate CGPA">
+                        <input type="reset" value="Reset" ng-click="reset()">
+                    </div>
+                </form>
+
+                <!-- To display the result on Main2 page -->
+                <div class="displayresult" ng-show="showCGPAResult">
+                    <span class="result-text">Your CGPA is: </span>
+                    <div>
+                        <span class="blueresult">{{cgpa_result}}</span>
+                        <span class="result-text">/10</span>
+                    </div>
+                </div>
+
+                <!-- The Popup for Main2 -->
+                <div class="popup" ng-class="{ 'open-popup': isPopup2_Open }">
+                    <img src="../images/tick.png" alt="Green Tick">
+                    <h2>Your CGPA is</h2>
+                    <div>
+                        <span class="pop-up-result">{{cgpa_result}}</span>
+                        <span class="result-text">/10</span><br><br>
+                    </div>
+                    <button type="submit" ng-click="updateCGPA()">Update Your CGPA</button>
+                    <button type="button" ng-click="closePopup2()">Close</button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- The Toast Notification -->
+        <div class="toast success">
+            <div class="toast-content">
+                <i class="fa-solid fa-check"></i>
+
+                <div class="message">
+                    <span class="text text-1">Success</span>
+                    <span id="message" class="text text-2"></span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close"></i>
+
+            <div class="progress"></div>
+        </div>
+
+        <div class="toast error">
+            <div class="toast-content">
+                <i class="fa-solid fa-xmark"></i>
+
+                <div class="message">
+                    <span class="text text-1">Error</span>
+                    <span class="text text-2"></span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close"></i>
+
+            <div class="progress"></div>
+        </div>
+
+
+        <!-- Wrapper for animation area -->
+        <div class="animation-area">
+            <ul class="box-area">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+
+<script src="../js/toast.js"></script>
+<script src="../js/cgpa.js"></script>
+<script src="../js/navbar.js"></script>
+
+</html>

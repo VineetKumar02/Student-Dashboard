@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- For Icon logo -->
+    <link rel="icon" type="image/x-icon" href="../images/ssn.png">
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/about.css" />
+    <link rel="stylesheet" href="../css/animation.css" />
+    <link rel="stylesheet" href="../css/nav-styles.css" />
+
+    <!-- For Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+    <!-- Angular JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+
+    <title>About Page</title>
+</head>
+
+<body ng-app="myApp" ng-controller="aboutController">
+
+    <div id="progress">
+        <a href="#top" id="progress-value"><i class="fa-solid fa-arrow-up"></i></a>
+    </div>
+
+    <!-- The Vertical Navbar -->
+    <nav class="sidebar">
+        <div class="toggle">
+            <i class="fa-solid fa-angles-right"></i>
+        </div>
+        <div class="logo">
+            <img src="../images/ssn-logo.png" alt="ssn logo">
+        </div>
+        <div class="nav-title">
+            <h3>SSNCE</h3>
+            Student DashBoard
+        </div>
+        <ul>
+            <li class="nav-item">
+                <a href="../html/dashboard.html?digitalid={{digitalid}}"> <i class="fa-solid fa-house-chimney"></i>
+                    <span>DashBoard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../html/cgpa.html?digitalid={{digitalid}}"><i class="fa-solid fa-calculator"></i>
+                    <span>GPA Calculator</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a href="../html/about.html?digitalid={{digitalid}}"><i class="fa-solid fa-circle-question"></i>
+                    <span>Calculation Steps</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../html/settings.html?digitalid={{digitalid}}"><i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+        <hr>
+        <ul>
+            <li class="nav-item log-out">
+                <a href="../html/login.html"><i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Log Out</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="top" class="container">
+        <img class="ssn-logo" src="../images/ssn-logo.png" alt="ssn logo" />
+
+        <h2>What is GPA and CGPA?</h2>
+
+        <ul class="list">
+            <li>
+                <p><strong>Grade Point Average (GPA)</strong> is the average of grade points obtained in one(single)
+                    semester.
+                </p>
+            </li>
+            <li>
+                <p>
+                    <strong>Cumulative grade point average (CGPA)</strong> is the average grade point obtained by the
+                    students at the end of their academic program.
+                </p>
+            </li>
+        </ul>
+
+
+        <h2>Difference between GPA and CGPA</h2>
+
+        <p>
+            Although both GPA and CGPA indicate the student's academic performance, one big difference exists between
+            them. GPA is the average of the student's grade points in all the courses during a single semester, while
+            CGPA is
+            the average of the grade points obtained by the student during the whole course. GPA is calculated for a
+            single
+            semester, while CGPA is calculated for the entire course duration.&nbsp;
+        </p>
+
+
+        <h2 id="how-to-calculate-gpa">How to calculate GPA?</h2>
+
+        <p title="How to calculate GPA?">SSN GPA is calculated as the ratio of the sum of the products
+            of the number of credits of courses registered and the grade points scored in those courses to the sum
+            of the number of credits of in the semester.
+        </p>
+
+
+        <br>
+
+        <img class="formula center" src="../images/cgpa_formula.png" alt="cgpa formula" usemap="#image-map"
+            title="Hotspot (Image Map is Used. Try hovering on the variables)">
+        <map name="image-map">
+            <area alt="Credits" title="Credits" href="" coords="313,99,5" shape="circle">
+            <area alt="GPA" title="GPA" href="" coords="331,98,7" shape="circle">
+            <area alt="Credits" title="Credits" href="" coords="334,156,7" shape="circle">
+            <area alt="No. of Subjects/Sem" title="No. of Subjects/Sem" href="" coords="298,83,6" shape="circle">
+            <area alt="No. of Subjects/Sem" title="No. of Subjects/Sem" href="" coords="305,140,6" shape="circle">
+        </map>
+
+        <br>
+
+        <p><strong>Where,</strong></p>
+        <ul class="list">
+            <li><strong>n</strong> is the number of all courses successfully cleared.</li>
+            <li><strong>𝐶<sub>𝑖</sub></strong> is the number of credits assigned to the course.</li>
+            <li><strong>𝐺𝑃<sub>𝑖</sub></strong> is the grade point obtained for each course.</li>
+        </ul>
+        <p>
+            For example, if a semester has 4 subjects with 3 credits each and a student got 9, 8, 8, 9, and 7 in these
+            subjects.
+        </p>
+        <p>So, the GPA = [(9*3 + 8*3 + 8*3 + 9*3 + 7*3)] / 15 = 8.5 GPA</p>
+
+
+        <h2>Grading System at SSN</h2>
+
+        <p>The student's performance is reported using letter grades, each carrying specific points as shown below.</p>
+        <table class="styled-table center">
+            <thead>
+                <tr>
+                    <th>Grade Letters</th>
+                    <th>Grade Points</th>
+                    <th>Marks range</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>O (Outstanding)</td>
+                    <td>10</td>
+                    <td>91-100</td>
+                </tr>
+                <tr>
+                    <td>A+ (Excellent)</td>
+                    <td>9</td>
+                    <td>81-90</td>
+                </tr>
+                <tr>
+                    <td>A (Very good)</td>
+                    <td>8</td>
+                    <td>71-80</td>
+                </tr>
+                <tr>
+                    <td>B+ (Good)</td>
+                    <td>7</td>
+                    <td>61-70</td>
+                </tr>
+                <tr>
+                    <td>B (Average)</td>
+                    <td>6</td>
+                    <td>51-60</td>
+                </tr>
+                <tr>
+                    <td>C (Satisfactory)</td>
+                    <td>5</td>
+                    <td>&lt; 50</td>
+                </tr>
+                <tr>
+                    <td>RA (Re-Appearance)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>SA (shortage of attendance)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>W (Withdrawal)</td>
+                    <td>0</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+        <p class="note"><strong class="blue">Note</strong>: To get <strong>distinction,</strong> students should get no
+            less
+            than<strong> 8.5
+                CGPA</strong> score without any arrears/backlogs in all the semesters. Students should score at least
+            <strong>6.5 CGPA</strong> to get <strong>First class</strong>
+        </p>
+
+        <br>
+
+        <p>
+            The course's assessment is evaluated on a total marks basis. If the student obtains any of these grades (O,
+            A+, A, B+, or B), then the student is deemed to have passed a particular course. After the declaration of
+            results, students will be issued Grade Sheets containing the following details:
+        </p>
+
+        <ul class="list">
+            <li>The college where the student has studied.</li>
+            <li>The list of courses enrolled and the grades scored.</li>
+            <li>The GPA for the semester.</li>
+            <li>The CGPA of all courses enrolled from the first semester onwards.</li>
+        </ul>
+
+
+        <h2>CGPA to Percentage Conversion</h2>
+
+        <p>CGPA score can be converted to percentage by multiplying the CGPA value with 10.</p><br>
+        <div class="percentage center">
+            <strong>Percentage = <span class="blue">CGPA x 10</span></strong>
+        </div>
+
+        <br>
+
+        <div class="center">
+            <p><strong>For example,</strong> if the CGPA score is 9.83<br><strong>Percentage = </strong>9.83
+                x 10 = 98.3%</p>
+        </div>
+
+        <br><br>
+        <button id="show-hide-btn" class="button">Show Additional Details</button>
+
+        <!-- Remove this to remove additional container -->
+        <div class="additional-container">
+
+            <h2>Video</h2>
+            <video width="65%" controls>
+                <source src="https://res.cloudinary.com/codelife/video/upload/v1637805738/intro_l5ul1k.mp4"
+                    type="video/mp4">
+            </video>
+
+            <h2>Audio</h2>
+            <audio controls>
+                <source src="../assets/audio.mp3" type="audio/mp3">
+            </audio>
+
+            <h2>SVG</h2>
+            <svg height="130" width="500">
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:rgb(5, 117, 230);stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:rgb(13, 75, 160);stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <ellipse cx="100" cy="70" rx="85" ry="55" fill="url(#grad1)" />
+                <text fill="#ffffff" font-size="45" font-family="Verdana" x="50" y="86">SSN</text>
+                Sorry, your browser does not support inline SVG.
+            </svg>
+
+            <h2>Canvas</h2>
+            <canvas id="myCanvas" width="550" height="240" style="border: 2px solid black;"></canvas>
+
+            <h2>Geolocation</h2>
+            <p>Click the button to get your coordinates.</p>
+            <br>
+            <button class="button" onclick="getLocation()">Get Location</button>
+            <br><br>
+            <p id="loc">
+                <b>Latitude:</b>
+                <br>
+                <b>Longitude:</b>
+            </p>
+
+            <h2>Angular JS Video Player</h2>
+            <div class="video-player" ng-controller="videoController">
+                <video ng-src="{{videoSrc}}" width="65%" controls></video>
+            </div>
+            <br>
+
+            <h2>Angular JS Text Editor</h2>
+            <div class="text-editor" ng-controller="textEditorController">
+                <div class="toolbar">
+                    <button ng-click="bold()"><b>B</b></button>
+                    <button ng-click="italic()"><i>I</i></button>
+                    <button ng-click="underline()"><u>U</u></button>
+                </div>
+                <div class="editor" contenteditable="true" ng-model="text"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Wrapper for animation area -->
+    <div class="animation-area">
+        <ul class="box-area">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+
+</body>
+
+<script src="../js/navbar.js"></script>
+<script src="../js/about.js"></script>
+
+</html>

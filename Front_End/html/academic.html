@@ -1,0 +1,75 @@
+<form class="tab-panel fade" id="academic" name="academicForm" ng-submit="submitAcademicForm($event)">
+
+    <div class="heading">
+        <i class="fa-solid fa-user-pen"></i>
+        <h3>Academic Settings</h3>
+    </div>
+
+    <hr>
+
+    <div class="wrapper">
+        <input type="radio" name="select_exam" ng-model="select_exam" id="option-1" value="cat1"
+            ng-change='examChange()'>
+        <input type="radio" name="select_exam" ng-model="select_exam" id="option-2" value="cat2"
+            ng-change='examChange()'>
+        <input type="radio" name="select_exam" ng-model="select_exam" id="option-3" value="cat3"
+            ng-change='examChange()'>
+        <input type="radio" name="select_exam" ng-model="select_exam" id="option-4" value="sem"
+            ng-change='examChange()'>
+
+        <label for="option-1" class="option option-1">
+            <span>CAT-1 Details</span>
+        </label>
+
+        <label for="option-2" class="option option-2">
+            <span>CAT-2 Details</span>
+        </label>
+
+        <label for="option-3" class="option option-3">
+            <span>CAT-3 Details</span>
+        </label>
+
+        <label for="option-4" class="option option-4">
+            <span>SEM Details</span>
+        </label>
+    </div>
+
+    <div class="academic-details">
+        <div class="outer-cat-container" ng-show="cat_view">
+            <div id="subject-heading">
+                <p style="width: 390px;">Subject Name</p>
+                <p style="margin-left: 0%;">Credits</p>
+                <p style="margin-left: 5%;">Marks <br>(Out of 100)</p>
+                <p style="margin-left: 7%;">Attendance<br>(in %)</p>
+            </div>
+
+            <hr style="width: 100%;">
+
+            <div class="cat-container" ng-repeat="subject in subjects | limitTo: 6 track by $index">
+                <span>{{subject.course}}</span>
+                <span class="credits">{{subject.credits}}</span>
+                <div class="input-box cat">
+                    <input type="number" ng-model="student[select_exam].marks[$index]" placeholder="Marks" min=0
+                        max=100>
+                    <input type="number" ng-model="student[select_exam].attendance[$index]" placeholder="Attendance"
+                        min=0 max=100>
+                </div>
+            </div>
+
+        </div>
+        <div class="outer-sem-container" ng-show="sem_view">
+            <div class="input-box sem" ng-repeat="sem in student.sem_gpa track by $index">
+                <span class="details">SEM {{$index+1}} GPA</span>
+                <input type="number" ng-model="student.sem_gpa[$index]" name="sem{{$index+1}}GPA"
+                    placeholder="Sem-{{$index+1}} GPA" min=0 max=10 step="0.01">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="btn-grp">
+        <input type="submit" value="Update" class="btn btn-primary">
+        <input type="button" value="Cancel" class="btn btn-light" ng-click="cancel()">
+    </div>
+    
+</form>

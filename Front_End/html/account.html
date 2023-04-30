@@ -1,0 +1,90 @@
+<form class="tab-panel active" id="account" name="accountForm" ng-submit="submitAccountForm()">
+
+    <div class="heading">
+        <i class="fa-solid fa-user-pen"></i>
+        <h3>Account Settings</h3>
+    </div>
+
+    <hr>
+
+    <div class="user-details">
+        <div class="input-box">
+            <span class="details">Full Name</span>
+            <input type="text" ng-model="student.name" placeholder="Enter your name" ng-value=student.name required>
+        </div>
+
+        <div class="input-box">
+            <span class="details">SSN Email ID</span>
+            <input type="email" ng-model="student.email" placeholder="Enter your email" ng-value=student.email required>
+        </div>
+
+        <div class="input-box">
+            <span class="details">Register No.</span>
+            <input type="tel" ng-model="student.regNo" placeholder="Enter your SSN reg no" pattern="[0-9]{9}"
+                ng-value=student.regNo required>
+        </div>
+
+        <div class="input-box">
+            <span class="details">Digital ID</span>
+            <input type="tel" ng-model="student.digitalid" placeholder="Enter your digital id" pattern="[0-9]{7}"
+                ng-value=student.digitalid required>
+        </div>
+
+        <div class="input-box">
+            <span class="details">Department (B.E/B.Tech)</span>
+            <select ng-model="student.dept" name="dept" ng-value=student.dept required>
+                <option value="EEE">EEE</option>
+                <option value="ECE">ECE</option>
+                <option value="CSE">CSE</option>
+                <option value="IT">IT</option>
+                <option value="MECH">MECH</option>
+                <option value="CHEMICAL">Chemical</option>
+                <option value="BIOMEDICAL">Biomedical</option>
+                <option value="CIVIL">Civil</option>
+            </select>
+        </div>
+
+        <div class="input-box">
+            <span class="details">Semester</span>
+            <select ng-model="student.semester" name="semester" ng-value=student.semester required>
+                <option value="I">I</option>
+                <option value="II">II</option>
+                <option value="III">III</option>
+                <option value="IV">IV</option>
+                <option value="V">V</option>
+                <option value="VI">VI</option>
+                <option value="VII">VII</option>
+                <option value="VIII">VIII</option>
+            </select>
+        </div>
+
+        <div class="gender-details">
+            <input type="radio" ng-model="student.gender" name="gender" id="dot-1" ng-value="' male'" required>
+            <input type="radio" ng-model="student.gender" name="gender" id="dot-2" ng-value="'female'" required>
+            <input type="radio" ng-model="student.gender" name="gender" id="dot-3" ng-value="'others'" required>
+
+            <span class="gender-title">Gender</span>
+
+            <div class="category">
+                <label for="dot-1">
+                    <span class="dot one"></span>
+                    <span class="gender">Male</span>
+                </label>
+                <label for="dot-2">
+                    <span class="dot two"></span>
+                    <span class="gender">Female</span>
+                </label>
+                <label for="dot-3">
+                    <span class="dot three"></span>
+                    <span class="gender">Prefer not to say</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-grp">
+        <input type="submit" value="Update" class="btn btn-primary">
+        <input type="button" value="Cancel" class="btn btn-light" ng-click="cancel()">
+    </div>
+
+</form>

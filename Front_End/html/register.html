@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- For Icon logo -->
+    <link rel="icon" type="image/x-icon" href="../images/ssn.png">
+
+    <!-- For Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/animation.css" />
+    <link rel="stylesheet" href="../css/toast.css">
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-messages/1.8.3/angular-messages.min.js"></script>
+
+
+    <title>Registration Page</title>
+</head>
+
+<body ng-app="myApp">
+    <div class="container">
+        <img class="ssn-logo" src="../images/ssn-logo.png" alt="ssn logo" />
+        <div class="title">Registration</div>
+        <div class="content">
+
+            <form ng-controller="registerController" name="registerForm" ng-submit="submitForm()">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Full Name</span>
+                        <input type="text" ng-model="name" placeholder="Enter your name" autocomplete="name" required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">SSN Email ID</span>
+                        <input type="email" ng-model="email" placeholder="Enter your email" autocomplete="email"
+                            required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Register No.</span>
+                        <input type="tel" ng-model="regNo" id="regNo" placeholder="Enter your SSN reg no" required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Digital ID</span>
+                        <input type="tel" ng-model="digitalid" id="digitalid" placeholder="Enter your digital id"
+                            class="active" readonly required>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Department (B.E/B.Tech)</span>
+                        <select name="dept" ng-model="dept" id="dept" required>
+                            <option value="" disabled selected hidden>Select your Department</option>
+                            <option value="EEE">EEE</option>
+                            <option value="ECE">ECE</option>
+                            <option value="CSE">CSE</option>
+                            <option value="IT">IT</option>
+                            <option value="MECH">MECH</option>
+                            <option value="CHEMICAL">Chemical</option>
+                            <option value="BIOMEDICAL">Biomedical</option>
+                            <option value="CIVIL">Civil</option>
+                        </select>
+                    </div>
+
+                    <div class="input-box">
+                        <span class="details">Semester</span>
+                        <select name="semester" ng-model="semester" id="semester" required>
+                            <option value="" disabled selected hidden>Choose your Current Semester</option>
+                            <option value="I">I</option>
+                            <option value="II">II</option>
+                            <option value="III">III</option>
+                            <option value="IV">IV</option>
+                            <option value="V">V</option>
+                            <option value="VI">VI</option>
+                            <option value="VII">VII</option>
+                            <option value="VIII">VIII</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="gender-details">
+                    <input ng-model="gender" type="radio" name="gender" id="dot-1" value="male" required>
+                    <input ng-model="gender" type="radio" name="gender" id="dot-2" value="female" required>
+                    <input ng-model="gender" type="radio" name="gender" id="dot-3" value="others" required>
+                    <span class="gender-title">Gender</span>
+                    <div class="category">
+                        <label for="dot-1">
+                            <span class="dot one"></span>
+                            <span class="gender">Male</span>
+                        </label>
+                        <label for="dot-2">
+                            <span class="dot two"></span>
+                            <span class="gender">Female</span>
+                        </label>
+                        <label for="dot-3">
+                            <span class="dot three"></span>
+                            <span class="gender">Prefer not to say</span>
+                        </label>
+
+                        <div class="error" ng-show="registerForm.gender.$error.required">{{message}}</div>
+                    </div>
+                </div>
+
+                <div class="button">
+                    <input type="submit" value="Register">
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    <!-- The Toast Notification -->
+    <div class="toast success">
+        <div class="toast-content">
+            <i class="fa-solid fa-check"></i>
+
+            <div class="message">
+                <span class="text text-1">Success</span>
+                <span id="message" class="text text-2"></span>
+            </div>
+        </div>
+        <i class="fa-solid fa-xmark close"></i>
+
+        <div class="progress progressfull"></div>
+    </div>
+
+    <div class="toast error">
+        <div class="toast-content">
+            <i class="fa-solid fa-xmark"></i>
+
+            <div class="message">
+                <span class="text text-1">Error</span>
+                <span class="text text-2"></span>
+            </div>
+        </div>
+        <i class="fa-solid fa-xmark close"></i>
+
+        <div class="progress"></div>
+    </div>
+
+
+    <!-- Wrapper for animation area -->
+    <div class="animation-area">
+        <ul class="box-area">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+</body>
+
+<script src="../js/toast.js"></script>
+<script src="../js/register.js"></script>
+
+</html>

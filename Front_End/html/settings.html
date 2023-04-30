@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+	<!-- For Icon logo -->
+	<link rel="icon" type="image/x-icon" href="../images/ssn2.png">
+
+	<!-- For Icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" type="text/css" href="../css/settings.css">
+	<link rel="stylesheet" href="../css/animation.css" />
+	<link rel="stylesheet" href="../css/nav-styles.css" />
+	<link rel="stylesheet" href="../css/toast.css" />
+
+	<!-- Angular JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.3/angular-route.min.js"></script>
+
+	<title>Edit Profile</title>
+</head>
+
+<body ng-app="myApp" ng-controller="settingsController">
+	<!-- The Vertical Navbar -->
+	<nav class="sidebar">
+		<div class="toggle">
+			<i class="fa-solid fa-angles-right"></i>
+		</div>
+		<div class="logo">
+			<img src="../images/ssn-logo.png" alt="ssn logo">
+		</div>
+		<div class="nav-title">
+			<h3>SSNCE</h3>
+			Student DashBoard
+		</div>
+		<ul>
+			<li class="nav-item">
+				<a href="../html/dashboard.html?digitalid={{digitalid}}"> <i class="fa-solid fa-house-chimney"></i>
+					<span>DashBoard</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="../html/cgpa.html?digitalid={{digitalid}}"><i class="fa-solid fa-calculator"></i>
+					<span>GPA Calculator</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="../html/about.html?digitalid={{digitalid}}"><i class="fa-solid fa-circle-question"></i>
+					<span>Calculation Steps</span>
+				</a>
+			</li>
+			<li class="nav-item active">
+				<a href="../html/settings.html?digitalid={{digitalid}}"><i class="fa-solid fa-gear"></i>
+					<span>Settings</span>
+				</a>
+			</li>
+		</ul>
+		<hr>
+		<ul>
+			<li class="nav-item log-out">
+				<a href="../html/login.html"><i class="fa-solid fa-right-from-bracket"></i>
+					<span>Log Out</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+
+	<div class="container">
+
+		<div class="main-heading">
+			<i class="fa-solid fa-user-gear"></i>
+			<h1>Edit Profile</h1>
+		</div>
+		<div class="inner-container">
+			<div class="profile-tab-nav">
+				<div class="profile-img">
+					<i class="fa-solid fa-circle-user"></i>
+					<h3>{{student.name}}</h3>
+					<p>Student</p>
+				</div>
+
+				<div class="nav" ng-controller="navController">
+					<a class="nav-link" ng-class="{ 'active': isActive('/account') }"
+						href="?digitalid={{digitalid}}#!/account">
+						<i class="fa-solid fa-house-chimney"></i>
+						Account
+					</a>
+					<a class="nav-link" ng-class="{ 'active': isActive('/academic') }"
+						href="?digitalid={{digitalid}}#!/academic">
+						<i class="fa-solid fa-graduation-cap"></i>
+						Academic
+					</a>
+					<a class="nav-link" ng-class="{ 'active': isActive('/password') }"
+						href="?digitalid={{digitalid}}#!/password">
+						<i class="fa-solid fa-key"></i>
+						Password
+					</a>
+				</div>
+			</div>
+
+			<div class="tab-content">
+				<ng-view></ng-view>
+			</div>
+
+		</div>
+
+		<!-- The Toast Notification -->
+		<div class="toast success">
+			<div class="toast-content">
+				<i class="fa-solid fa-check"></i>
+
+				<div class="message">
+					<span class="text text-1">Success</span>
+					<span id="message" class="text text-2"></span>
+				</div>
+			</div>
+			<i class="fa-solid fa-xmark close"></i>
+
+			<div class="progress"></div>
+		</div>
+
+		<div class="toast error">
+			<div class="toast-content">
+				<i class="fa-solid fa-xmark"></i>
+
+				<div class="message">
+					<span class="text text-1">Error</span>
+					<span class="text text-2"></span>
+				</div>
+			</div>
+			<i class="fa-solid fa-xmark close"></i>
+
+			<div class="progress"></div>
+		</div>
+
+		<!-- Wrapper for animation area -->
+		<div class="animation-area">
+			<ul class="box-area">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+
+</body>
+
+<script src="../js/toast.js"></script>
+<script src="../js/settings.js"></script>
+
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- For Icon logo -->
+    <link rel="icon" type="image/x-icon" href="../images/ssn.png">
+
+    <!-- For Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/animation.css" />
+    <link rel="stylesheet" href="../css/nav-styles.css" />
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+
+    <title>DashBoard</title>
+</head>
+
+<body ng-app="myApp" ng-controller="dashboardController">
+    <!-- The Vertical Navbar -->
+    <nav class="sidebar">
+        <div class="toggle">
+            <i class="fa-solid fa-angles-right"></i>
+            <!-- <i class="fa-solid fa-circle-right"></i> -->
+        </div>
+        <div class="logo">
+            <img src="../images/ssn-logo.png" alt="ssn logo">
+        </div>
+        <div class="nav-title">
+            <h3>SSNCE</h3>
+            Student DashBoard
+        </div>
+        <ul>
+            <li class="nav-item active">
+                <a href="#"> <i class="fa-solid fa-house-chimney"></i>
+                    <span>DashBoard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../html/cgpa.html?digitalid={{digitalid}}"><i class="fa-solid fa-calculator"></i>
+                    <span>GPA Calculator</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../html/about.html?digitalid={{digitalid}}"><i class="fa-solid fa-circle-question"></i>
+                    <span>Calculation Steps</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="../html/settings.html?digitalid={{digitalid}}"><i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+        <hr>
+        <ul>
+            <li class="nav-item log-out">
+                <a href="../html/login.html"><i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Log Out</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- <img class="ssn-logo" src="../img/ssn-logo.png" alt="ssn logo" />
+        <br>
+        <h1>Welcome Back, Vineet!</h1> -->
+
+        <!-- Components -->
+        <welcome name={{student.name}}></welcome>
+
+        <br>
+
+        <div class="heading2">
+            <i class="fa-solid fa-user-graduate"></i>
+            <span>Student Details</span>
+            <hr>
+        </div>
+
+        <br>
+
+        <div class="details-container">
+            <i class="fa-solid fa-circle-user"></i>
+            <span>Personal Information</span>
+            <hr>
+            <div class="student-details">
+                <div class="details">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Full Name</span>
+                    <hr>
+                    <p>{{student.name}}</p>
+                </div>
+                <div class="details">
+                    <i class="fa-solid fa-address-card"></i>
+                    <span>Registration Number</span>
+                    <hr>
+                    <p>{{student.regNo}}</p>
+                </div>
+                <div class="details">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span>Digital ID</span>
+                    <hr>
+                    <p>{{student.digitalid}}</p>
+                </div>
+                <div class="details">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>SSN Mail ID</span>
+                    <hr>
+                    <p>{{student.email}}</p>
+                </div>
+                <div class="details">
+                    <i class="fa-solid fa-building"></i>
+                    <span>Department</span>
+                    <hr>
+                    <p>{{student.dept}}</p>
+                </div>
+                <div class="details">
+                    <i class="fa-solid fa-list-ol"></i>
+                    <span>Semester</span>
+                    <hr>
+                    <p>{{student.semester}}</p>
+                </div>
+            </div>
+
+        </div>
+
+        <br><br>
+        <div class="heading2">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>Academic Performance</span>
+            <hr>
+        </div>
+        <br>
+
+        <h2 class="heading">CAT Subject-wise Details</h2>
+
+        <div class="cat-container">
+            <h4>Enter Subject Name to Filter Search</h4>
+            <input type="text" ng-model="searchQuery" placeholder="Search by Subject Name">
+            <br><br>
+            <h1 id="cat-number">CAT-1</h1>
+            <br>
+            <div class="slider">
+                <button class="arrow-btn" ng-click="changeCatLeft()"><i
+                        class="fa-solid fa-circle-arrow-left"></i></button>
+
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>SUBJECT</th>
+                            <th>CREDITS</th>
+                            <th>MARK (Out of 100)</th>
+                            <th>ATTENDANCE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="subject in subjects | filter:searchQuery | limitTo:6">
+                            <td class=" sub-name">{{subject.course}}</td>
+                            <td class="sub-credit">{{subject.credits}}</td>
+                            <td class="sub-mark">{{marks[$index]}}</td>
+                            <td class="sub-mark">{{attendance[$index]}}%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button class="arrow-btn" ng-click="changeCatRight()"><i
+                        class="fa-solid fa-circle-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <br>
+        <hr><br>
+
+        <h2 class="heading">CAT Average Details</h2>
+
+        <div class="avg-cat-details">
+            <div class="cat-card" ng-repeat="subject in subjects | limitTo: 6 track by $index">
+                <div class="cat-card-title">
+                    <span class="overlay"></span>
+                    <p>{{subject.course}}</p>
+                </div>
+
+                <div class="cat-card-content">
+                    <div class="mark">
+                        <h2 class="name">Marks: </h2>
+                        <span class="description">{{student.avg_cat_marks[$index]}}</span>
+                    </div>
+                    <div class="attendance">
+                        <h2 class="name">Attendance: </h2>
+                        <span class="description">{{student.avg_attendance[$index]}}%</span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="graphs">
+                <div class="avg-percentage">
+                    <div class="circular-progress">
+                        <span class="progress-value">0</span>
+                    </div>
+                    <span class="progress-text">SEM CGPA</span>
+                </div>
+
+                <div class="avg-percentage">
+                    <div class="circular-progress">
+                        <span class="progress-value">0%</span>
+                    </div>
+                    <span class="progress-text">Average Attendance</span>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <hr><br>
+
+        <h2 class="heading">SEM Details</h2>
+        <div class="sem-container">
+            <div class="sem-details">
+                <div class="sem-card" ng-repeat="sem in student.sem_gpa track by $index">
+                    <div class="sem-card-bg"></div>
+                    <p class="sem-card-title">Sem {{$index + 1}}</p>
+                    <!-- <span class="sem-card-span">GPA:</span> -->
+                    <span class="sem-card-content">{{sem !=0 ? sem : '--'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Wrapper for animation area -->
+    <div class="animation-area">
+        <ul class="box-area">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+
+</body>
+
+<script src="../js/navbar.js"></script>
+<script src="../js/dashboard.js"></script>
+
+</html>

@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+* {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    list-style: none;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(to right, rgb(5, 117, 230), rgb(13, 75, 160));
+}
+
+td {
+    padding: 10px 5px 5px 5px;
+}
+
+
+select {
+    padding: 5px;
+    width: 110px;
+    border-radius: 5px;
+    font-size: 15px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    appearance: button;
+    border: 1px solid #333;
+}
+
+
+/* Properties for Content box */
+/* Flex Col - So that all items are in column wise */
+#app .content {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 45%;
+    z-index: 1;
+}
+
+/* Properties for text in top part */
+#app .content h1 {
+    font-size: 2rem;
+    color: #fff;
+    margin: 50px 0 25px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+#app .content h3 {
+    color: #fff;
+    line-height: 1.5rem;
+    font-weight: normal;
+    display: block;
+    letter-spacing: 0.5px;
+    margin-bottom: 40px;
+}
+
+/* Properties for Container*/
+#app .content .container {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+    margin-bottom: 50px;
+}
+
+.semester {
+    border-radius: 1rem 1rem 0 0;
+    padding: .75rem;
+    background-color: #eeebeb;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-weight: bold;
+}
+
+.semester select {
+    width: 150px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #055fdd;
+    background-color: #fff;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #ececec;
+    border-radius: 100px;
+    appearance: none;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNXB4IiBoZWlnaHQ9IjNweCIgdmlld0JveD0iMCAwIDUgMyIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj4KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggNTAuMSAoNTUwNDQpIC0gaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoIC0tPgogICAgPHRpdGxlPmFycm93X2Ryb3BfZG93biAtIG1hdGVyaWFsPC90aXRsZT4KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPgogICAgPGRlZnM+PC9kZWZzPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IkRyaWJibGUtVGh1bWJuaWxfMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTU0NC4wMDAwMDAsIC0yMjcuMDAwMDAwKSIgZmlsbD0iIzJEODVGRCI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cC03IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1MC4wMDAwMDAsIDcyLjAwMDAwMCkiPgogICAgICAgICAgICAgICAgPGcgaWQ9Ikdyb3VwLTQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLCAwLjYwMjQxMCkiPgogICAgICAgICAgICAgICAgICAgIDxnIGlkPSJHcm91cC02IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNzUuMDAwMDAwLCAzOC4wNjI1MDApIj4KICAgICAgICAgICAgICAgICAgICAgICAgPGcgaWQ9Ikdyb3VwLTUiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQuMjI0MTM4LCA5NC43NDEzNzkpIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxnIGlkPSJEeW5hbWljLWdyb3VwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyNDcuNDEzNzkzLCAxMy44NzkzMTApIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZyBpZD0iODoxMiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTYuODk2NTUyLCA0LjgyNzU4NikiPgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8cG9seWdvbiBpZD0iYXJyb3dfZHJvcF9kb3duLS0tbWF0ZXJpYWwiIHBvaW50cz0iNTAuNjg5NjU1MiAzLjAxNzI0MTM4IDU1LjUxNzI0MTQgMy4wMTcyNDEzOCA1My4xMDM0NDgzIDUuNDMxMDM0NDgiPjwvcG9seWdvbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICAgICAgICAgIDwvZz4KICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==);
+    background-repeat: no-repeat;
+    background-position: 88%;
+    background-size: 7px;
+}
+
+.semester select option {
+    color: black;
+}
+
+/* For Selecting Mode Bar */
+#app .content .selection {
+    display: flex;
+    flex-direction: row;
+}
+
+
+#app .content .selection button {
+    cursor: pointer;
+    width: 50%;
+    padding: 0.75rem;
+    background: #fff;
+    border: none;
+    font-size: .9rem;
+    color: #8e8e8e;
+    text-transform: uppercase;
+    transition-timing-function: ease-in-out;
+    transition-duration: .25s;
+    transition-property: all;
+}
+
+/* properties when an option is selected/active */
+#app .content .selection .active {
+    border-bottom: 2.5px solid #055fdd;
+    font-weight: bold;
+    font-size: .9rem;
+    color: #055fdd;
+}
+
+
+.course-list {
+    width: 90%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    /* border-collapse: separate; */
+}
+
+.course-list thead {
+    height: 50px;
+    text-transform: uppercase;
+    /* border-bottom: 2px solid black; */
+}
+
+.course .name {
+    font-weight: 600;
+}
+
+
+.sem-data {
+    background-color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.sem-data p {
+    font-weight: bold;
+    min-width: 100px;
+}
+
+.sem-data input {
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+    border: 1px solid #ececec;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.sem-data input[type=number] {
+    min-width: 30%;
+    margin: 0 1rem;
+}
+
+
+/* Properties for button */
+.buttons input {
+    color: white;
+    font-size: large;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-radius: 10px;
+    padding: 12px 20px;
+    margin: 30px 15px;
+    transition: ease-out 0.3s;
+    cursor: pointer;
+    /* margin-top: 30px; */
+}
+
+.buttons input[type=submit] {
+    background-color: #2d85fd;
+    border-color: #2d85fd;
+}
+
+.buttons input[type=reset] {
+    background-color: #fd2d2d;
+    border-color: #fd2d2d;
+}
+
+
+/* Button Hover Animation - left to right color */
+.buttons input[type=submit]:hover {
+    box-shadow: inset 190px 0 0 0 #055fdd;
+}
+
+.buttons input[type=reset]:hover {
+    box-shadow: inset 100px 0 0 0 #dc0a0a;
+}
+
+
+/* Properties for displaying result on Main Page */
+.displayresult {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.displayresult .result-text {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+/* Make font big and blue for calculated cgpa value */
+
+.displayresult .blueresult {
+    color: #2d85fd;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+
+/* Properties for Pop-Up Window */
+.popup {
+    background: #fff;
+    border-radius: 10px;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    width: 25%;
+    transform: translate(-50%, -50%) scale(0);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #333;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.popup .result-text {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.popup .pop-up-result {
+    color: #2d85fd;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.popup div {
+    margin-top: 20px;
+}
+
+.popup img {
+    width: 100px;
+    margin-top: -50px;
+    border-radius: 50%;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+.popup h2 {
+    font-weight: 500;
+    margin: 30px 0 10px;
+    font-size: 38px;
+}
+
+/* For Buttons of pop-up */
+.popup button {
+    font-weight: 600;
+    font-size: medium;
+    width: 60%;
+    margin: 10px 0;
+    padding: 15px 0;
+    color: #fff;
+    border: 0;
+    outline: none;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+}
+
+.popup button[type=submit] {
+    background: #5fc838;
+}
+
+.popup button[type=button] {
+    background: #dc0a0a;
+}
+
+/* Make pop up visible with animation */
+.open-popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+
+/* Properties optimized for Mobile View */
+@media screen and (max-width: 780px) {
+    #app .content {
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-bottom: 160px;
+    }
+
+    .popup {
+        width: 220px;
+    }
+
+    .popup h2 {
+        font-size: 30px;
+    }
+
+    label {
+        display: none;
+    }
+
+    select {
+        padding: 5px;
+    }
+
+    td {
+        font-size: 15px;
+    }
+
+    .sem-data {
+        justify-content: space-evenly;
+        padding: 10px 20px;
+    }
+
+    .sem-data input[type=number] {
+        margin-left: 0;
+        min-width: 35%;
+    }
+}
