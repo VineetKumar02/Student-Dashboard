@@ -1,7 +1,7 @@
 # Student-Dashboard
 This is a MEAN stack project for managing student details.
 
-Installation
+## Installation
 
 Clone the repository
 
@@ -12,7 +12,7 @@ Run npm install to install the dependencies
 Run npm start to start the server
 
 
-Dependencies
+## Dependencies
 
 body-parser: 1.20.2
 
