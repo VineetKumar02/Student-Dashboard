@@ -54,6 +54,7 @@ app.controller('dashboardController', function ($scope, $http, $q) {
                         .then(response => {
                             $scope.subjects = response.data[$scope.student.semester];
                             $scope.theory_subs = response.data.theory_count[$scope.theory[$scope.student.semester] - 1];
+                            $scope.sem_credits = response.data.sem_credits;
                             // console.log($scope.theory_subs);
                             // console.log($scope.subjects);
                             $scope.calcaulateAverage();
@@ -114,9 +115,22 @@ app.controller('dashboardController', function ($scope, $http, $q) {
         $scope.student.overall_avg_attendance = overall_avg / $scope.theory_subs;
         // console.log($scope.student.overall_avg_attendance);
 
-        $http.post('http://localhost:4000/updateAverage', { digitalid: $scope.digitalid, avg1: $scope.student.avg_cat_marks, avg2: $scope.student.avg_attendance, avg3: $scope.student.overall_avg_attendance })
+        $scope.sum = 0;
+        $scope.totalcredits = 0;
+        for (let i = 0; i < 8; i++) {
+            if ($scope.student.sem_gpa[i] != 0) {
+                $scope.sum += ($scope.student.sem_gpa[i] * $scope.sem_credits[i]);
+                $scope.totalcredits += $scope.sem_credits[i];
+            }
+        }
+        $scope.cgpa_result = parseFloat($scope.sum / $scope.totalcredits).toFixed(2);
+        $scope.student.cgpa = $scope.cgpa_result;
+        // console.log($scope.cgpa_result);
+
+        $http.post('http://localhost:4000/updateAverage', { digitalid: $scope.digitalid, avg1: $scope.student.avg_cat_marks, avg2: $scope.student.avg_attendance, avg3: $scope.student.overall_avg_attendance, avg4: $scope.student.cgpa })
             .then(response => {
                 console.log(response.data);
+                $scope.progressEndValue1 = $scope.student.cgpa;
                 $scope.progressEndValue2 = $scope.student.overall_avg_attendance;
             })
             .catch(error => {

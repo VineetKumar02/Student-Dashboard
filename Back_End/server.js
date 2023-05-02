@@ -336,12 +336,14 @@ app.post('/updateCGPA', function (req, res) {
 
 app.post('/updateAverage', function (req, res) {
 
-    const { digitalid, avg1, avg2, avg3 } = req.body;
+    const { digitalid, avg1, avg2, avg3, avg4 } = req.body;
 
     Student.findOneAndUpdate({ digitalid: digitalid }, {
         avg_cat_marks: avg1,
         avg_attendance: avg2,
-        overall_avg_attendance: avg3
+        overall_avg_attendance: avg3,
+        cgpa: avg4
+
     }, { new: true })
         .then((updatedStudent) => {
             // console.log(updatedStudent);
