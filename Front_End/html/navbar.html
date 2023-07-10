@@ -1,0 +1,42 @@
+<nav class="sidebar" ng-class="{ 'open': isSidebarOpen }">
+    <div class="toggle" ng-click="toggleSidebar()">
+        <i class="fa-solid fa-angles-right"></i>
+    </div>
+    <div class="logo">
+        <img src="../images/ssn-logo.png" alt="ssn logo">
+    </div>
+    <div class="nav-title">
+        <h3>SSNCE</h3>
+        Student Dashboard
+    </div>
+    <ul>
+        <li class="nav-item" ng-class="{ 'active': page === 'dashboard' }">
+            <a href="/dashboard"> <i class="fa-solid fa-house-chimney"></i>
+                <span>DashBoard</span>
+            </a>
+        </li>
+        <li class="nav-item" ng-class="{ 'active': page === 'cgpa' }">
+            <a href="/cgpa"><i class="fa-solid fa-calculator"></i>
+                <span>GPA Calculator</span>
+            </a>
+        </li>
+        <li class="nav-item" ng-class="{ 'active': page === 'about' }">
+            <a href="/about"><i class="fa-solid fa-circle-question"></i>
+                <span>Calculation Steps</span>
+            </a>
+        </li>
+        <li class="nav-item" ng-class="{ 'active': page === 'settings' }">
+            <a href="/settings"><i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+    </ul>
+    <hr>
+    <ul>
+        <li class="nav-item log-out">
+            <a href="/login"><i class="fa-solid fa-right-from-bracket"></i>
+                <span>Log Out</span>
+            </a>
+        </li>
+    </ul>
+</nav>

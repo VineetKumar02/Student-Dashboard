@@ -19,63 +19,21 @@
 
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+    <!-- <script src="../js/dashboard.js"></script> -->
 
     <title>DashBoard</title>
 </head>
 
 <body ng-app="myApp" ng-controller="dashboardController">
     <!-- The Vertical Navbar -->
-    <nav class="sidebar">
-        <div class="toggle">
-            <i class="fa-solid fa-angles-right"></i>
-            <!-- <i class="fa-solid fa-circle-right"></i> -->
-        </div>
-        <div class="logo">
-            <img src="../images/ssn-logo.png" alt="ssn logo">
-        </div>
-        <div class="nav-title">
-            <h3>SSNCE</h3>
-            Student DashBoard
-        </div>
-        <ul>
-            <li class="nav-item active">
-                <a href="#"> <i class="fa-solid fa-house-chimney"></i>
-                    <span>DashBoard</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="../html/cgpa.html?digitalid={{digitalid}}"><i class="fa-solid fa-calculator"></i>
-                    <span>GPA Calculator</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="../html/about.html?digitalid={{digitalid}}"><i class="fa-solid fa-circle-question"></i>
-                    <span>Calculation Steps</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="../html/settings.html?digitalid={{digitalid}}"><i class="fa-solid fa-gear"></i>
-                    <span>Settings</span>
-                </a>
-            </li>
-        </ul>
-        <hr>
-        <ul>
-            <li class="nav-item log-out">
-                <a href="../html/login.html"><i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Log Out</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <navbar></navbar>
 
     <div class="container">
-        <!-- <img class="ssn-logo" src="../img/ssn-logo.png" alt="ssn logo" />
-        <br>
-        <h1>Welcome Back, Vineet!</h1> -->
-
-        <!-- Components -->
-        <welcome name={{student.name}}></welcome>
+        <div>
+            <img class="ssn-logo" src="../images/ssn-logo.png" alt="ssn logo" />
+            <br>
+            <h1>Welcome Back, {{student.name}}! 👋</h1>
+        </div>
 
         <br>
 
@@ -253,7 +211,7 @@
 
 </body>
 
-<script src="../js/navbar.js"></script>
 <script src="../js/dashboard.js"></script>
+<script src="../js/navbar.js"></script>
 
 </html>

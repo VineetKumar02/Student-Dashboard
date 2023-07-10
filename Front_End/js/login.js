@@ -3,26 +3,27 @@ app = angular.module('myApp', []);
 
 
 // To validate the Sign In form
-app.controller("signInController", function ($scope, $http) {
+app.controller("signInController", ($scope, $http) => {
 
   $scope.formSubmitted = false;
 
-  $scope.submitSignInForm = function () {
+  $scope.submitSignInForm = () => {
     if ($scope.signInForm.$valid) {
 
       // Form is valid, do something with the data
       var data = { digitalid: $scope.digitalid, password: $scope.pass1 };
 
-      $http.post('http://localhost:4000/login', data)
+      $http.post('/login', data)
         .then(response => {
           // console.log(response.data);
           showSuccessToast(response.data);
 
-          setTimeout(() => {
-            location.href = `dashboard.html?digitalid=${$scope.digitalid}`;
-          }, 2500);
+          // Add Digital Id to Session Storage to access it in any page
+          sessionStorage.setItem('digitalId', $scope.digitalid);
 
-          // location.href = `dashboard.html?digitalid=${$scope.digitalid}`;
+          setTimeout(() => {
+            location.href = `dashboard`;
+          }, 2500);
         })
         .catch(err => {
           console.error("Error:-\n", err);
@@ -38,20 +39,23 @@ app.controller("signInController", function ($scope, $http) {
 
 
 // To validate the Sign Up form
-app.controller("signUpController", function ($scope, $http) {
+app.controller("signUpController", ($scope, $http) => {
 
   $scope.formSubmitted = false;
 
-  $scope.submitSignUpForm = function () {
+  $scope.submitSignUpForm = () => {
     if ($scope.signUpForm.$valid) {
 
-      $http.post('http://localhost:4000/signup', { digitalid: $scope.digitalid, password: $scope.pass2 })
+      $http.post('/signup', { digitalid: $scope.digitalid, password: $scope.pass2 })
         .then(response => {
           console.log(response.data);
           showSuccessToast(response.data);
 
+          // Add Digital Id to Session Storage to access it in any page
+          sessionStorage.setItem('digitalId', $scope.digitalid);
+
           setTimeout(() => {
-            location.href = `register.html?digitalid=${$scope.digitalid}`;
+            location.href = `register`;
           }, 2500);
 
         })
@@ -69,18 +73,18 @@ app.controller("signUpController", function ($scope, $http) {
   };
 });
 
-app.directive("compareTo", function () {
+app.directive("compareTo", () => {
   return {
     require: "ngModel",
     scope:
     {
       confirmPassword: "=compareTo"
     },
-    link: function (scope, element, attributes, modelVal) {
-      modelVal.$validators.compareTo = function (val) {
+    link: (scope, element, attributes, modelVal) => {
+      modelVal.$validators.compareTo = (val) => {
         return val == scope.confirmPassword;
       };
-      scope.$watch("confirmPassword", function () {
+      scope.$watch("confirmPassword", () => {
         modelVal.$validate();
       });
     }

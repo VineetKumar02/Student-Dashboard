@@ -1,27 +1,36 @@
 var app = angular.module("myApp", ["ngRoute"]);
 
-app.config(function ($routeProvider) {
+app.component('navbar', {
+    templateUrl: 'html/navbar.html',
+    controller: 'NavbarController'
+});
+
+app.config(($routeProvider) => {
     $routeProvider
         .when("/account", {
-            templateUrl: "account.html",
+            templateUrl: "/html/account.html",
             controller: "accountController",
         })
         .when("/academic", {
-            templateUrl: "academic.html",
+            templateUrl: "/html/academic.html",
             controller: "academicController",
         })
         .when("/password", {
-            templateUrl: "password.html",
+            templateUrl: "/html/password.html",
             controller: "passwordController",
         })
         .otherwise({ redirectTo: "/account" });
 });
 
 
-app.controller("settingsController", function ($scope, $http) {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    $scope.digitalid = urlParams.get('digitalid');
+
+
+app.controller("settingsController", ($scope, $http) => {
+
+    if (!sessionStorage.getItem('digitalId')) {
+        location.href = "login";
+    }
+    $scope.digitalid = sessionStorage.getItem('digitalId');
 
     $scope.message = "";
 
@@ -36,7 +45,7 @@ app.controller("settingsController", function ($scope, $http) {
 });
 
 
-app.controller('navController', function ($scope, $location) {
+app.controller('navController', ($scope, $location) => {
     $scope.isActive = function (route) {
         return route === $location.path();
     }

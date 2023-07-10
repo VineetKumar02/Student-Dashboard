@@ -27,48 +27,7 @@
 <body ng-app="myApp" ng-controller="calculatorController">
 
     <!-- The Vertical Navbar -->
-    <nav class="sidebar">
-        <div class="toggle">
-            <i class="fa-solid fa-angles-right"></i>
-        </div>
-        <div class="logo">
-            <img src="../images/ssn-logo.png" alt="ssn logo">
-        </div>
-        <div class="nav-title">
-            <h3>SSNCE</h3>
-            Student DashBoard
-        </div>
-        <ul>
-            <li class="nav-item">
-                <a href="../html/dashboard.html?digitalid={{digitalid}}"> <i class="fa-solid fa-house-chimney"></i>
-                    <span>DashBoard</span>
-                </a>
-            </li>
-            <li class="nav-item active">
-                <a href="../html/cgpa.html?digitalid={{digitalid}}"><i class="fa-solid fa-calculator"></i>
-                    <span>GPA Calculator</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="../html/about.html?digitalid={{digitalid}}"><i class="fa-solid fa-circle-question"></i>
-                    <span>Calculation Steps</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="../html/settings.html?digitalid={{digitalid}}"><i class="fa-solid fa-gear"></i>
-                    <span>Settings</span>
-                </a>
-            </li>
-        </ul>
-        <hr>
-        <ul>
-            <li class="nav-item log-out">
-                <a href="../html/login.html"><i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Log Out</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <navbar></navbar>
 
 
     <div id="app">

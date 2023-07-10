@@ -1,26 +1,24 @@
-const sidebar = document.querySelector('.sidebar');
-const navItems = document.querySelectorAll('nav .nav-item');
-const toggle = document.querySelector('.sidebar .toggle');
+app.controller('NavbarController', function ($scope, $location, $window) {
 
-toggle.addEventListener('click', () => {
+    // Get the current URL path from the browser's location object
+    var url = $window.location.pathname;
 
-    if (sidebar.className === 'sidebar')
-        sidebar.classList.add('open');
-    else
-        sidebar.classList.remove('open');
+    $scope.isSidebarOpen = false;
+    $scope.page = getPageFromUrl($location.path());
 
-});
+    $scope.toggleSidebar = function () {
+        $scope.isSidebarOpen = !$scope.isSidebarOpen;
+    };
 
-navItems.forEach(navItem => {
-
-    navItem.addEventListener('click', () => {
-
-        navItems.forEach(navItem => {
-            navItem.classList.remove('active');
-        });
-
-        navItem.classList.add('active');
-
+    $scope.$on('$locationChangeSuccess', function () {
+        $scope.page = getPageFromUrl(url);
     });
 
+    function getPageFromUrl(url) {
+        // Extract the page name from the URL
+        var page = url.substring(url.lastIndexOf('/') + 1);
+        if (page === 'account' || page === 'academic' || page === 'password')
+            page = 'settings';
+        return page || 'dashboard';   // Set a default page if none is provided
+    }
 });

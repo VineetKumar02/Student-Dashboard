@@ -1,6 +1,16 @@
 var app = angular.module('myApp', []);
 
-app.controller('calculatorController', function ($scope, $http, $q) {
+app.component('navbar', {
+    templateUrl: 'html/navbar.html',
+    controller: 'NavbarController'
+});
+
+app.controller('calculatorController', ($scope, $http, $q) => {
+
+    if (!sessionStorage.getItem('digitalId')) {
+        location.href = "login";
+    }
+    $scope.digitalid = sessionStorage.getItem('digitalId');
 
     $scope.grade = [];
     $scope.semCredits = [];
@@ -15,12 +25,12 @@ app.controller('calculatorController', function ($scope, $http, $q) {
     $scope.showGpa = true;
     $scope.showCgpa = false;
 
-    $scope.showGpaLayout = function () {
+    $scope.showGpaLayout = () => {
         $scope.showGpa = true;
         $scope.showCgpa = false;
     };
 
-    $scope.showCgpaLayout = function () {
+    $scope.showCgpaLayout = () => {
         $scope.showGpa = false;
         $scope.showCgpa = true;
     };
@@ -37,8 +47,8 @@ app.controller('calculatorController', function ($scope, $http, $q) {
     };
 
 
-    $scope.updateSubjects = function () {
-        $http.get('http://localhost:4000/getSubjects')
+    $scope.updateSubjects = () => {
+        $http.get('/getSubjects')
             .then(response => {
                 $scope.subjects = response.data[$scope.semester];
                 $scope.sem_credits = response.data.sem_credits;
@@ -50,11 +60,8 @@ app.controller('calculatorController', function ($scope, $http, $q) {
             });
     };
 
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    $scope.digitalid = urlParams.get('digitalid');
 
-    $http.post('http://localhost:4000/getAccount', { digitalid: $scope.digitalid })
+    $http.post('/getAccount', { digitalid: $scope.digitalid })
         .then(response => {
             $scope.student = response.data;
             $scope.semester = $scope.student.semester;
@@ -71,7 +78,7 @@ app.controller('calculatorController', function ($scope, $http, $q) {
         });
 
 
-    $scope.calculateGPA = function () {
+    $scope.calculateGPA = () => {
         $scope.creditsum = 0;
         $scope.value = 0;
 
@@ -85,15 +92,15 @@ app.controller('calculatorController', function ($scope, $http, $q) {
         $scope.isPopup1_Open = true;
     };
 
-    $scope.closePopup1 = function () {
+    $scope.closePopup1 = () => {
         $scope.isPopup1_Open = false;
     };
 
 
-    $scope.updateGPA = function () {
+    $scope.updateGPA = () => {
         $scope.student.sem_gpa[$scope.theory[$scope.semester] - 1] = parseFloat($scope.gpa_result);
         console.log($scope.student.sem_gpa);
-        $http.post('http://localhost:4000/updateGPA', { digitalid: $scope.digitalid, sem_gpa: $scope.student.sem_gpa })
+        $http.post('/updateGPA', { digitalid: $scope.digitalid, sem_gpa: $scope.student.sem_gpa })
             .then(response => {
                 // console.log(response.data);
                 showSuccessToast(response.data);
@@ -106,7 +113,7 @@ app.controller('calculatorController', function ($scope, $http, $q) {
     };
 
 
-    $scope.calculateCGPA = function () {
+    $scope.calculateCGPA = () => {
         $scope.sum = 0;
         $scope.totalcredits = 0;
         for (let i = 0; i < $scope.semdone; i++) {
@@ -119,16 +126,16 @@ app.controller('calculatorController', function ($scope, $http, $q) {
         $scope.isPopup2_Open = true;
     };
 
-    $scope.closePopup2 = function () {
+    $scope.closePopup2 = () => {
         $scope.isPopup2_Open = false;
     };
 
 
-    $scope.updateCGPA = function () {
+    $scope.updateCGPA = () => {
         $scope.student.cgpa = $scope.cgpa_result;
         // console.log($scope.student.sem_gpa);
         // console.log($scope.student.cgpa);
-        $http.post('http://localhost:4000/updateCGPA', { digitalid: $scope.digitalid, sem_gpa: $scope.student.sem_gpa, cgpa: $scope.student.cgpa })
+        $http.post('/updateCGPA', { digitalid: $scope.digitalid, sem_gpa: $scope.student.sem_gpa, cgpa: $scope.student.cgpa })
             .then(response => {
                 // console.log(response.data);
                 showSuccessToast(response.data);
@@ -140,8 +147,8 @@ app.controller('calculatorController', function ($scope, $http, $q) {
             });
     };
 
-    
-    $scope.reset = function () {
+
+    $scope.reset = () => {
         $scope.showGPAResult = false;
         $scope.showCGPAResult = false;
         $scope.isPopup1_Open = false;

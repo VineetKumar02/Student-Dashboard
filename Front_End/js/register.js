@@ -1,19 +1,21 @@
-app = angular.module('myApp', ['ngMessages']);
+app = angular.module('myApp', []);
 
 
-app.controller('registerController', function ($scope, $http, messageService) {
+app.controller('registerController', ($scope, $http, messageService) => {
+
+    if (!sessionStorage.getItem('digitalId')) {
+        location.href = "login";
+    }
+    $scope.digitalid = sessionStorage.getItem('digitalId');
+
+
     $scope.message = messageService.getMessage();
 
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    $scope.digitalid = urlParams.get('digitalid');
-
-    // console.log($scope.digitalid);     // this will log the digitalid value passed from the previous page
 
     regno_RGEX = /^\d{9}$/;
     digitalid_RGEX = /^\d{7}$/;
 
-    $scope.validateForm = function () {
+    $scope.validateForm = () => {
         var formValid = true;
         var regno_Result = regno_RGEX.test($scope.regNo);
         var digitalid_Result = digitalid_RGEX.test($scope.digitalid);
@@ -31,8 +33,8 @@ app.controller('registerController', function ($scope, $http, messageService) {
         return formValid;
     };
 
-    
-    $scope.submitForm = function () {
+
+    $scope.submitForm = () => {
         if ($scope.validateForm()) {
             console.log("Form is valid");
 
@@ -48,13 +50,13 @@ app.controller('registerController', function ($scope, $http, messageService) {
             };
 
             // Send a POST request to the server to add data to the database
-            $http.post('http://localhost:4000/register', data)
+            $http.post('/register', data)
                 .then(response => {
                     // console.log("Data added to MongoDB:", response);
                     showSuccessToast(response.data);
 
                     setTimeout(() => {
-                        location.href = `dashboard.html?digitalid=${$scope.digitalid}`;
+                        location.href = `dashboard`;
                     }, 3000);
 
                 })
@@ -72,7 +74,7 @@ app.controller('registerController', function ($scope, $http, messageService) {
 app.service('messageService', function () {
     var message = "**Enter your gender";
     return {
-        getMessage: function () {
+        getMessage: () => {
             return message;
         }
     };

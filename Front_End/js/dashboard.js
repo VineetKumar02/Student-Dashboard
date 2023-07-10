@@ -1,14 +1,19 @@
 app = angular.module('myApp', []);
 
-app.component('welcome', {
-    templateUrl: 'welcome-compo.html',
-    bindings: {
-        name: '@'
-    }
+
+app.component('navbar', {
+    templateUrl: 'html/navbar.html',
+    controller: 'NavbarController'
 });
 
 
-app.controller('dashboardController', function ($scope, $http, $q) {
+
+app.controller('dashboardController', ($scope, $http, $q) => {
+
+    if (!sessionStorage.getItem('digitalId')) {
+        location.href = "login";
+    }
+    $scope.digitalid = sessionStorage.getItem('digitalId');
 
     $scope.theory = {
         "I": 1,
@@ -21,12 +26,8 @@ app.controller('dashboardController', function ($scope, $http, $q) {
         "VIII": 8
     };
 
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    $scope.digitalid = urlParams.get('digitalid');
 
-
-    $http.post('http://localhost:4000/getAccount', { digitalid: $scope.digitalid })
+    $http.post('/getAccount', { digitalid: $scope.digitalid })
         .then(response => {
             $scope.student = response.data;
             // console.log($scope.student);
@@ -50,7 +51,7 @@ app.controller('dashboardController', function ($scope, $http, $q) {
             $q.when()
                 .then(() => {
                     // Code to be run after data is fetched
-                    $http.get('http://localhost:4000/getSubjects')
+                    $http.get('/getSubjects')
                         .then(response => {
                             $scope.subjects = response.data[$scope.student.semester];
                             $scope.theory_subs = response.data.theory_count[$scope.theory[$scope.student.semester] - 1];
@@ -69,7 +70,7 @@ app.controller('dashboardController', function ($scope, $http, $q) {
         });
 
 
-    $scope.calcaulateAverage = function () {
+    $scope.calcaulateAverage = () => {
 
         if ($scope.cat1_marks && $scope.cat2_marks && $scope.cat3_marks) {
             var present1 = $scope.cat1_marks.some(item => item !== 0);
@@ -99,7 +100,7 @@ app.controller('dashboardController', function ($scope, $http, $q) {
             var cat_temp = [$scope.cat1_marks[i], $scope.cat2_marks[i], $scope.cat3_marks[i]];
             var att_temp = [$scope.cat1_attendance[i], $scope.cat2_attendance[i], $scope.cat3_attendance[i]];
 
-            cat_temp.sort(function (a, b) {
+            cat_temp.sort((a, b) => {
                 return b - a;
             });
 
@@ -123,11 +124,16 @@ app.controller('dashboardController', function ($scope, $http, $q) {
                 $scope.totalcredits += $scope.sem_credits[i];
             }
         }
-        $scope.cgpa_result = parseFloat($scope.sum / $scope.totalcredits).toFixed(2);
-        $scope.student.cgpa = $scope.cgpa_result;
-        // console.log($scope.cgpa_result);
+        if ($scope.totalcredits != 0) {
+            $scope.cgpa_result = parseFloat($scope.sum / $scope.totalcredits).toFixed(2);
+            $scope.student.cgpa = $scope.cgpa_result;
+            // console.log($scope.cgpa_result);
+        }
+        else {
+            $scope.student.cgpa = 0;
+        }
 
-        $http.post('http://localhost:4000/updateAverage', { digitalid: $scope.digitalid, avg1: $scope.student.avg_cat_marks, avg2: $scope.student.avg_attendance, avg3: $scope.student.overall_avg_attendance, avg4: $scope.student.cgpa })
+        $http.post('/updateAverage', { digitalid: $scope.digitalid, avg1: $scope.student.avg_cat_marks, avg2: $scope.student.avg_attendance, avg3: $scope.student.overall_avg_attendance, avg4: $scope.student.cgpa })
             .then(response => {
                 console.log(response.data);
                 $scope.progressEndValue1 = $scope.student.cgpa;
@@ -139,7 +145,7 @@ app.controller('dashboardController', function ($scope, $http, $q) {
     };
 
 
-    $scope.changeCatRight = function () {
+    $scope.changeCatRight = () => {
         var cat = document.getElementById("cat-number").innerText;
         if (cat == "CAT-1") {
             document.getElementById("cat-number").innerText = "CAT-2";
@@ -158,7 +164,7 @@ app.controller('dashboardController', function ($scope, $http, $q) {
         }
     }
 
-    $scope.changeCatLeft = function () {
+    $scope.changeCatLeft = () => {
         var cat = document.getElementById("cat-number").innerText;
         if (cat == "CAT-1") {
             document.getElementById("cat-number").innerText = "CAT-3";
