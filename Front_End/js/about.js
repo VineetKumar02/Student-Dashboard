@@ -10,7 +10,14 @@ app.controller('aboutController', ($scope) => {
     if (!sessionStorage.getItem('digitalId')) {
         location.href = "login";
     }
-    $scope.digitalid = sessionStorage.getItem('digitalId');
+
+    $scope.smoothScroll = function () {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+    
 });
 
 

@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 
@@ -39,53 +40,39 @@ app.listen(port, () => {
 
 
 // Connect to MongoDB
-const mongoURI = 'mongodb://127.0.0.1:27017/Web_Lab';
-mongoose
-    .connect(mongoURI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then(() => console.log('Connected to MongoDB'))
-    .catch((err) => console.error('Could not connect to MongoDB\n', err));
+const dbURl = "mongodb+srv://studentdashboard:OTEP4gg3Mg74ZIO8@cluster0.8eu1vbk.mongodb.net/";
+const connectionParams = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+};
+
+mongoose.connect(dbURl, connectionParams)
+    .then(() => console.info('Connected to MongoDB'))
+    .catch((err) => console.error('Could not connect to MongoDB:\n', err));
 
 const { Decimal128 } = mongoose;
 
 
 
+// Define the schema for Student Details
+const studentSchema = new mongoose.Schema({
 
-// Define Schemas
-
-// Define the schema for login details
-const loginDetailsSchema = new mongoose.Schema({
     digitalid: {
         type: Number,
-        required: true,
-        unique: true
+        unique: true,
+        default: 0,
     },
-    password: {
-        type: String,
-        required: true
-    }
-}, { collection: 'login_details' });   // Set collection name to 'login_details'
-
-const LoginDetails = mongoose.model('LoginDetails', loginDetailsSchema);    // Create the LoginDetails model
-
-
-// Define the schema for student details
-const studentSchema = new mongoose.Schema({
-    name: String,
-    email: String,
+    password: { type: String, default: "" },
     regNo: {
         type: Number,
-        unique: true
+        unique: true,
+        default: 0,
     },
-    digitalid: {
-        type: Number,
-        unique: true
-    },
-    dept: String,
-    semester: String,
-    gender: String,
+    name: { type: String, default: "" },
+    email: { type: String, default: "" },
+    dept: { type: String, default: "" },
+    semester: { type: String, default: "" },
+    gender: { type: String, default: "" },
     cat1: {
         marks: { type: [Number], default: [0, 0, 0, 0, 0, 0] },
         attendance: { type: [Number], default: [0, 0, 0, 0, 0, 0] }
@@ -108,23 +95,6 @@ const studentSchema = new mongoose.Schema({
 const Student = mongoose.model('Student', studentSchema);    // Create the Student model
 
 
-// Define the schema for subjects
-const SubjectSchema = new mongoose.Schema({
-    I: [Object],
-    II: [Object],
-    III: [Object],
-    IV: [Object],
-    V: [Object],
-    VI: [Object],
-    VII: [Object],
-    VIII: [Object],
-    theory_count: Array,
-    sem_credits: Array
-}, { collection: 'subjects' });     // Set collection name to 'subjects'
-
-const Subject = mongoose.model('Subject', SubjectSchema);    // Create the Subject model
-
-
 
 
 // Code for all methods
@@ -134,19 +104,19 @@ app.post('/login', (req, res) => {
 
     const { digitalid, password } = req.body;
 
-    // Find a matching document in the LoginDetails collection
-    LoginDetails.findOne({ digitalid: digitalid, password: password })
+    // Find a matching document in the Student Details collection
+    Student.findOne({ digitalid: digitalid, password: password })
         .then((result) => {
             if (result) {
                 console.log('Login successful');
                 res.status(200).send('Login was successful');
             } else {
-                console.log('Invalid credentials');
+                console.error('Invalid credentials');
                 res.status(401).send('Invalid credentials');
             }
         })
         .catch((err) => {
-            console.log('Error logging in:', err);
+            console.error('Error logging in:', err);
             res.status(500).send('Error logging in');
         });
 });
@@ -157,8 +127,8 @@ app.post('/signup', (req, res) => {
 
     const { digitalid, password } = req.body;
 
-    // Check if the Digital Id already exists in the LoginDetails collection
-    LoginDetails.findOne({ digitalid: digitalid })
+    // Check if the Digital Id already exists in the Student Details collection
+    Student.findOne({ digitalid: digitalid })
         .then((result) => {
             if (result) {
                 console.log('Account Already Exists');
@@ -166,7 +136,7 @@ app.post('/signup', (req, res) => {
             }
             else {
                 console.log('Creating New Account');
-                const data = new LoginDetails({
+                const data = new Student({
                     digitalid: digitalid,
                     password: password,
                 });
@@ -178,13 +148,13 @@ app.post('/signup', (req, res) => {
                         res.status(200).send('Signed Up successfully');
                     })
                     .catch((err) => {
-                        console.log('Error saving data:', err);
+                        console.error('Error saving data:', err);
                         res.status(500).send('Error saving data');
                     });
             }
         })
         .catch((err) => {
-            console.log('Error during Sign Up:', err);
+            console.error('Error during Sign Up:', err);
             res.status(500).send('Error Signing Up');
         });
 });
@@ -194,46 +164,47 @@ app.post('/signup', (req, res) => {
 // POST request for Registration
 app.post('/register', (req, res) => {
 
-    // Create a new instance of the Student model with the form data
-    const newStudent = new Student({
-        name: req.body.name,
-        email: req.body.email,
-        regNo: req.body.regNo,
-        digitalid: req.body.digitalid,
-        dept: req.body.dept,
-        semester: req.body.semester,
-        gender: req.body.gender,
-    });
+    const digitalid = req.body.digitalid;
 
-    // Save the new student to the database
-    newStudent.save()
-        .then(result => {
+    Student.findOneAndUpdate({ digitalid: digitalid },
+        {
+            name: req.body.name,
+            email: req.body.email,
+            regNo: req.body.regNo,
+            dept: req.body.dept,
+            semester: req.body.semester,
+            gender: req.body.gender,
+        })
+        .then(() => {
             console.log('Data saved successfully');
             res.status(200).send('Registration successful');
         })
-        .catch(err => {
-            console.log('Error saving data:', err);
-            res.status(500).send('Error saving Student Data');
+        .catch((err) => {
+            console.error('Error during registration:', err);
+            res.status(500).send('Error during registration');
         });
 });
 
 
 // GET request to set Subjects Details
 app.get('/getSubjects', (req, res) => {
+    fs.readFile('../Database/sem_subjects.json', 'utf8', (err, data) => {
+        if (err) {
+            console.error('Error reading subjects file:', err);
+            res.status(500).send('Error reading subjects file');
+            return;
+        }
 
-    Subject.findOne({})
-        .then((result) => {
-            if (result) {
-                res.status(200).send(result);    // Send the Subject Details as JSON response
-            } else {
-                res.status(404).send('No subjects found');
-            }
-        })
-        .catch((err) => {
-            console.error('Error retrieving subjects:', err);
-            res.status(500).send('Error retrieving subjects');
-        });
+        try {
+            const subjects = JSON.parse(data);
+            res.status(200).json(subjects);
+        } catch (err) {
+            console.error('Error parsing subjects JSON:', err);
+            res.status(500).send('Error parsing subjects JSON');
+        }
+    });
 });
+
 
 
 
@@ -317,18 +288,18 @@ app.post('/updatePassword', (req, res) => {
 
     const { digitalid, oldpass, newpass, confirmnewpass } = req.body;
 
-    LoginDetails.findOne({ digitalid: digitalid })
+    Student.findOne({ digitalid: digitalid })
         .then((user) => {
             if (!user) {
-                console.log('User not found in database');
+                console.error('User not found in database');
                 res.status(404).send({ message: 'User not found in database' });
             }
             if (user.password !== oldpass) {
-                console.log('Old password does not match');
+                console.error('Old password does not match');
                 res.status(401).send({ message: 'Old password does not match' });
             }
             if (newpass !== confirmnewpass) {
-                console.log('New password and confirm new password do not match');
+                console.error('New password and confirm new password do not match');
                 res.status(400).send({ message: 'New password and confirm new password do not match' });
             }
 
@@ -340,12 +311,12 @@ app.post('/updatePassword', (req, res) => {
                     res.status(200).send({ message: 'Password updated successfully' });
                 })
                 .catch((err) => {
-                    console.log('Error updating password in database:', err);
+                    console.error('Error updating password in database:', err);
                     res.status(500).send({ message: 'Error updating password in database' });
                 });
         })
         .catch((err) => {
-            console.log('Error finding user in database:', err);
+            console.error('Error finding user in database:', err);
             res.status(500).send({ message: 'Error finding user in database' });
         });
 });
@@ -366,11 +337,12 @@ app.post('/updateGPA', (req, res) => {
                 res.status(200).send('GPA updated successfully');
             }
             else {
+                console.error('Student not found');
                 res.status(404).send('Student not found');
             }
         })
         .catch((err) => {
-            console.log('Error updating GPA:', err);
+            console.error('Error updating GPA:', err);
             res.status(500).send('Error updating GPA');
         });
 });
@@ -389,11 +361,12 @@ app.post('/updateCGPA', function (req, res) {
             if (updatedStudent) {
                 res.status(200).send('CGPA updated successfully');
             } else {
+                console.error('Student not found');
                 res.status(404).send('Student not found');
             }
         })
         .catch((err) => {
-            console.log('Error updating CGPA:', err);
+            console.error('Error updating CGPA:', err);
             res.status(500).send('Error updating CGPA');
         });
 });
@@ -416,11 +389,12 @@ app.post('/updateAverage', (req, res) => {
                 res.status(200).send('Average updated successfully');
             }
             else {
+                console.error('Student not found');
                 res.status(404).send('Student not found');
             }
         })
         .catch((err) => {
-            console.log('Error updating average:', err);
+            console.error('Error updating average:', err);
             res.status(500).send('Error updating average');
         });
 });

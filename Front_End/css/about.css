@@ -128,7 +128,7 @@ p {
 
 
 
-
+/* For the cicular Progress bar */
 #progress {
     position: fixed;
     display: grid;
@@ -140,6 +140,7 @@ p {
     border-radius: 50%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 999;
+    cursor: pointer;
 }
 
 #progress-value {
@@ -152,91 +153,4 @@ p {
     place-items: center;
     font-size: 35px;
     color: #001a2e;
-}
-
-
-
-
-
-/* Remove everything this to get rid of additonal container */
-.additional-container {
-    display: none;
-}
-
-.additional-container.active {
-    display: block;
-}
-
-.button {
-    width: 35%;
-    border-radius: 5px;
-    padding: 10px 20px;
-    border: none;
-    color: #fff;
-    font-size: 18px;
-    cursor: pointer;
-    transition: all 0.8s;
-    background: linear-gradient(to right, rgb(5, 117, 230), rgb(13, 75, 160));
-}
-
-.button:hover {
-    transition: 0.5s;
-    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.6);
-}
-
-
-
-/* Style the text editor */
-.text-editor {
-    display: flex;
-    flex-direction: column;
-    max-width: 500px;
-    margin: 20px 0;
-}
-
-/* Style the toolbar */
-.toolbar {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    background-color: #f2f2f2;
-    padding: 10px;
-    border-radius: 5px 5px 0px 0px;
-    border: 2px solid black;
-}
-
-/* Style the buttons */
-.toolbar button {
-    background-color: #fff;
-    font-size: 16px;
-    border: none;
-    padding: 5px 10px;
-    margin-right: 10px;
-    border-radius: 3px;
-    width: 40px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
-    transition: all 0.3s ease;
-}
-
-.toolbar button:hover {
-    background-color: #d9d9d9;
-    cursor: pointer;
-}
-
-/* Style the editor */
-.editor {
-    min-height: 200px;
-    padding: 10px;
-    background-color: #fff;
-    border: 2px solid #ddd;
-    border-radius: 0px 0px 5px 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-}
-
-.editor:focus {
-    outline: none;
-    box-shadow: 0 0 5px #aaa;
 }

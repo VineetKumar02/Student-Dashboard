@@ -135,7 +135,7 @@ app.controller('dashboardController', ($scope, $http, $q) => {
 
         $http.post('/updateAverage', { digitalid: $scope.digitalid, avg1: $scope.student.avg_cat_marks, avg2: $scope.student.avg_attendance, avg3: $scope.student.overall_avg_attendance, avg4: $scope.student.cgpa })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 $scope.progressEndValue1 = $scope.student.cgpa;
                 $scope.progressEndValue2 = $scope.student.overall_avg_attendance;
             })
@@ -207,11 +207,10 @@ app.controller('dashboardController', ($scope, $http, $q) => {
                     circularProgress[0].style.background = `conic-gradient(#1164d8 ${$scope.progressStartValue1 * 360 / 10}deg, #ededed 0deg)`;
 
                     if ($scope.progressStartValue1 >= $scope.progressEndValue1) {
+                        progressValue[0].textContent = `${$scope.progressStartValue1.toFixed(2) - 0.01}`;
                         clearInterval(progress1);
                     }
                 }, speed1);
-
-
 
 
                 let progress2 = setInterval(() => {
@@ -221,13 +220,36 @@ app.controller('dashboardController', ($scope, $http, $q) => {
                     circularProgress[1].style.background = `conic-gradient(#1164d8 ${$scope.progressStartValue2 * 360 / 100}deg, #ededed 0deg)`;
 
                     if ($scope.progressStartValue2 >= $scope.progressEndValue2) {
+                        progressValue[1].textContent = `${$scope.progressStartValue2.toFixed(1) - 0.01}%`;
                         clearInterval(progress2);
                     }
                 }, speed2);
                 bol = true;
             }
         });
-    }, { threshold: 0.5 });
+    }, { threshold: 0 });
 
     observer.observe(document.getElementsByClassName("graphs")[0]);
+
+
+    $scope.smoothScroll = function () {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
 });
+
+
+
+let calcScrollValue = () => {
+    let scrollProgress = document.getElementById("progress");
+    let pos = document.documentElement.scrollTop;
+    let calcHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let scrollValue = Math.round((pos * 100) / calcHeight);
+
+    scrollProgress.style.background = `conic-gradient(#03cc65 ${scrollValue}%, #d7d7d7 ${scrollValue}%)`;
+};
+
+window.onscroll = calcScrollValue;
+window.onload = calcScrollValue;

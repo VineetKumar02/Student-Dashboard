@@ -21,4 +21,8 @@ app.controller('NavbarController', function ($scope, $location, $window) {
             page = 'settings';
         return page || 'dashboard';   // Set a default page if none is provided
     }
+
+    $scope.resetSession = function () {
+        sessionStorage.removeItem('digitalId');
+    }
 });

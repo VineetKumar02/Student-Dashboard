@@ -408,13 +408,6 @@ body {
     position: relative;
 }
 
-/* .sem-card-span{
-    font-weight: bold;
-    font-size: 20px;
-    color: #FFF;
-    z-index: 2;
-    position: relative;
-} */
 
 .sem-card-content {
     z-index: 2;
@@ -435,4 +428,33 @@ body {
     right: -70px;
     border-radius: 50%;
     transition: all .5s ease;
+}
+
+
+
+/* For the cicular Progress bar */
+#progress {
+    position: fixed;
+    display: grid;
+    bottom: 20px;
+    right: 30px;
+    height: 70px;
+    width: 70px;
+    place-items: center;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+    cursor: pointer;
+}
+
+#progress-value {
+    display: grid;
+    height: calc(100% - 15px);
+    width: calc(100% - 15px);
+    text-decoration: none;
+    background-color: #ffffff;
+    border-radius: 50%;
+    place-items: center;
+    font-size: 35px;
+    color: #001a2e;
 }

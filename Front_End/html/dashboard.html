@@ -25,6 +25,12 @@
 </head>
 
 <body ng-app="myApp" ng-controller="dashboardController">
+
+    <div id="progress" ng-click="smoothScroll()">
+        <a id="progress-value"><i class="fa-solid fa-arrow-up"></i></a>
+    </div>
+
+
     <!-- The Vertical Navbar -->
     <navbar></navbar>
 
@@ -149,11 +155,11 @@
                 <div class="cat-card-content">
                     <div class="mark">
                         <h2 class="name">Marks: </h2>
-                        <span class="description">{{student.avg_cat_marks[$index]}}</span>
+                        <span class="description">{{student.avg_cat_marks[$index] | number:2 }}</span>
                     </div>
                     <div class="attendance">
                         <h2 class="name">Attendance: </h2>
-                        <span class="description">{{student.avg_attendance[$index]}}%</span>
+                        <span class="description">{{student.avg_attendance[$index] | number:2 }}%</span>
                     </div>
                 </div>
             </div>

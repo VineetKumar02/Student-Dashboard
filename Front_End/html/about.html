@@ -25,14 +25,14 @@
 
 <body ng-app="myApp" ng-controller="aboutController">
 
-    <div id="progress">
-        <a href="#top" id="progress-value"><i class="fa-solid fa-arrow-up"></i></a>
+    <div id="progress" ng-click="smoothScroll()">
+        <a id="progress-value"><i class="fa-solid fa-arrow-up"></i></a>
     </div>
 
     <!-- The Vertical Navbar -->
     <navbar></navbar>
 
-    <div id="top" class="container">
+    <div class="container">
         <img class="ssn-logo" src="../images/ssn-logo.png" alt="ssn logo" />
 
         <h2>What is GPA and CGPA?</h2>
@@ -199,20 +199,20 @@
         </div>
 
 
-    <!-- Wrapper for animation area -->
-    <div class="animation-area">
-        <ul class="box-area">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-    </div>
+        <!-- Wrapper for animation area -->
+        <div class="animation-area">
+            <ul class="box-area">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
 
 
 </body>
