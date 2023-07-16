@@ -61,12 +61,14 @@ app.controller('dashboardController', ($scope, $http, $q) => {
                             $scope.calcaulateAverage();
                         })
                         .catch(error => {
-                            console.error('Error:', error);
+                            // console.error('Error:', error);
+                            showErrorToast(error.data);
                         });
                 });
         })
         .catch(error => {
-            console.error('Error:', error);
+            // console.error('Error:', error);
+            showErrorToast(error.data);
         });
 
 
@@ -90,7 +92,8 @@ app.controller('dashboardController', ($scope, $http, $q) => {
 
             // console.log("CAT Finished: " + $scope.catDone);
         } else {
-            console.log("CAT Marks are undefined");
+            // console.error("CAT Marks are undefined");
+            showErrorToast("CAT Marks are undefined");
         }
 
         var overall_avg = 0;
@@ -140,7 +143,8 @@ app.controller('dashboardController', ($scope, $http, $q) => {
                 $scope.progressEndValue2 = $scope.student.overall_avg_attendance;
             })
             .catch(error => {
-                console.error('Error:', error);
+                // console.error('Error:', error);
+                showErrorToast(error.data);
             });
     };
 

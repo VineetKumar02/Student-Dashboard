@@ -56,7 +56,8 @@ app.controller('calculatorController', ($scope, $http, $q) => {
                 // console.log($scope.sem_credits);
             })
             .catch(error => {
-                console.error('Error:', error);
+                // console.error('Error:', error);
+                showErrorToast(error.data);
             });
     };
 
@@ -74,7 +75,8 @@ app.controller('calculatorController', ($scope, $http, $q) => {
                 });
         })
         .catch(error => {
-            console.error('Error:', error);
+            console.error(error);
+            showErrorToast(error.data);
         });
 
 
@@ -99,7 +101,7 @@ app.controller('calculatorController', ($scope, $http, $q) => {
 
     $scope.updateGPA = () => {
         $scope.student.sem_gpa[$scope.theory[$scope.semester] - 1] = parseFloat($scope.gpa_result);
-        console.log($scope.student.sem_gpa);
+        // console.log($scope.student.sem_gpa);
         $http.post('/updateGPA', { digitalid: $scope.digitalid, sem_gpa: $scope.student.sem_gpa })
             .then(response => {
                 // console.log(response.data);
@@ -107,7 +109,7 @@ app.controller('calculatorController', ($scope, $http, $q) => {
                 $scope.closePopup1();
             })
             .catch(error => {
-                console.error('Error:', error);
+                // console.error('Error:', error);
                 showErrorToast(error.data);
             });
     };
@@ -142,7 +144,7 @@ app.controller('calculatorController', ($scope, $http, $q) => {
                 $scope.closePopup2();
             })
             .catch(error => {
-                console.error('Error:', error);
+                // console.error('Error:', error);
                 showErrorToast(error.data);
             });
     };

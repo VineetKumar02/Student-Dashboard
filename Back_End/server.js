@@ -117,15 +117,15 @@ app.post('/login', (req, res) => {
     Student.findOne({ digitalid: digitalid, password: password })
         .then((result) => {
             if (result) {
-                console.log('Login successful');
+                // console.log('Login successful');
                 res.status(200).send('Login was successful');
             } else {
-                console.error('Invalid credentials');
+                // console.error('Invalid credentials');
                 res.status(401).send('Invalid credentials');
             }
         })
-        .catch((err) => {
-            console.error('Error logging in:', err);
+        .catch((error) => {
+            // console.error('Error logging in:', error);
             res.status(500).send('Error logging in');
         });
 });
@@ -140,11 +140,11 @@ app.post('/signup', (req, res) => {
     Student.findOne({ digitalid: digitalid })
         .then((result) => {
             if (result) {
-                console.log('Account Already Exists');
+                // console.log('Account Already Exists');
                 res.status(409).send('Account Already Exists. Proceed to Login');
             }
             else {
-                console.log('Creating New Account');
+                // console.log('Creating New Account');
                 const data = new Student({
                     digitalid: digitalid,
                     password: password,
@@ -153,17 +153,17 @@ app.post('/signup', (req, res) => {
                 // Save the new account to the database
                 data.save()
                     .then((result) => {
-                        console.log('Signed Up successfully');
+                        // console.log('Signed Up successfully');
                         res.status(200).send('Signed Up successfully');
                     })
-                    .catch((err) => {
-                        console.error('Error saving data:', err);
+                    .catch((error) => {
+                        // console.error('Error saving data:', error);
                         res.status(500).send('Error saving data');
                     });
             }
         })
-        .catch((err) => {
-            console.error('Error during Sign Up:', err);
+        .catch((error) => {
+            // console.error('Error during Sign Up:', error);
             res.status(500).send('Error Signing Up');
         });
 });
@@ -185,11 +185,11 @@ app.post('/register', (req, res) => {
             gender: req.body.gender,
         })
         .then(() => {
-            console.log('Data saved successfully');
+            // console.log('Data saved successfully');
             res.status(200).send('Registration successful');
         })
-        .catch((err) => {
-            console.error('Error during registration:', err);
+        .catch((error) => {
+            // console.error('Error during registration:', error);
             res.status(500).send('Error during registration');
         });
 });
@@ -197,9 +197,9 @@ app.post('/register', (req, res) => {
 
 // GET request to set Subjects Details
 app.get('/getSubjects', (req, res) => {
-    fs.readFile('../Database/sem_subjects.json', 'utf8', (err, data) => {
-        if (err) {
-            console.error('Error reading subjects file:', err);
+    fs.readFile('../Database/sem_subjects.json', 'utf8', (error, data) => {
+        if (error) {
+            // console.error('Error reading subjects file:', error);
             res.status(500).send('Error reading subjects file');
             return;
         }
@@ -207,8 +207,8 @@ app.get('/getSubjects', (req, res) => {
         try {
             const subjects = JSON.parse(data);
             res.status(200).json(subjects);
-        } catch (err) {
-            console.error('Error parsing subjects JSON:', err);
+        } catch (error) {
+            // console.error('Error parsing subjects JSON:', error);
             res.status(500).send('Error parsing subjects JSON');
         }
     });
@@ -230,8 +230,8 @@ app.post('/getAccount', (req, res) => {
                 res.status(404).send('Student not found');   // Student not found
             }
         })
-        .catch((err) => {
-            console.error('Error retrieving student data:', err);
+        .catch((error) => {
+            // console.error('Error retrieving student data:', error);
             res.status(500).send('Error retrieving student data');
         });
 });
@@ -257,8 +257,8 @@ app.put('/updateAccount', (req, res) => {
                 res.status(404).send('Account not found');   // Account not found
             }
         })
-        .catch((err) => {
-            console.error('Error updating account details:', err);
+        .catch((error) => {
+            // console.error('Error updating account details:', error);
             res.status(500).send('Error updating account details');
         });
 });
@@ -285,8 +285,8 @@ app.put('/updateAcademic', function (req, res) {
                 res.status(404).send('Student not found');
             }
         })
-        .catch(err => {
-            console.error('Error updating academic details:', err);
+        .catch(error => {
+            // console.error('Error updating academic details:', error);
             res.status(500).send('Error updating academic details');
         });
 });
@@ -300,15 +300,15 @@ app.post('/updatePassword', (req, res) => {
     Student.findOne({ digitalid: digitalid })
         .then((user) => {
             if (!user) {
-                console.error('User not found in database');
+                // console.error('User not found in database');
                 res.status(404).send({ message: 'User not found in database' });
             }
             if (user.password !== oldpass) {
-                console.error('Old password does not match');
+                // console.error('Old password does not match');
                 res.status(401).send({ message: 'Old password does not match' });
             }
             if (newpass !== confirmnewpass) {
-                console.error('New password and confirm new password do not match');
+                // console.error('New password and confirm new password do not match');
                 res.status(400).send({ message: 'New password and confirm new password do not match' });
             }
 
@@ -316,17 +316,17 @@ app.post('/updatePassword', (req, res) => {
             user.password = newpass;
             user.save()
                 .then(() => {
-                    console.log('Password updated successfully');
-                    res.status(200).send({ message: 'Password updated successfully' });
+                    // console.log('Password updated successfully');
+                    res.status(200).send('Password updated successfully');
                 })
-                .catch((err) => {
-                    console.error('Error updating password in database:', err);
-                    res.status(500).send({ message: 'Error updating password in database' });
+                .catch((error) => {
+                    // console.error('Error updating password in database:', error);
+                    res.status(500).send('Error updating password in database');
                 });
         })
-        .catch((err) => {
-            console.error('Error finding user in database:', err);
-            res.status(500).send({ message: 'Error finding user in database' });
+        .catch((error) => {
+            // console.error('Error finding user in database:', error);
+            res.status(500).send('Error finding user in database');
         });
 });
 
@@ -346,12 +346,12 @@ app.post('/updateGPA', (req, res) => {
                 res.status(200).send('GPA updated successfully');
             }
             else {
-                console.error('Student not found');
+                // console.error('Student not found');
                 res.status(404).send('Student not found');
             }
         })
-        .catch((err) => {
-            console.error('Error updating GPA:', err);
+        .catch((error) => {
+            // console.error('Error updating GPA:', error);
             res.status(500).send('Error updating GPA');
         });
 });
@@ -370,12 +370,12 @@ app.post('/updateCGPA', function (req, res) {
             if (updatedStudent) {
                 res.status(200).send('CGPA updated successfully');
             } else {
-                console.error('Student not found');
+                // console.error('Student not found');
                 res.status(404).send('Student not found');
             }
         })
-        .catch((err) => {
-            console.error('Error updating CGPA:', err);
+        .catch((error) => {
+            // console.error('Error updating CGPA:', error);
             res.status(500).send('Error updating CGPA');
         });
 });
@@ -398,12 +398,12 @@ app.post('/updateAverage', (req, res) => {
                 res.status(200).send('Average updated successfully');
             }
             else {
-                console.error('Student not found');
+                // console.error('Student not found');
                 res.status(404).send('Student not found');
             }
         })
-        .catch((err) => {
-            console.error('Error updating average:', err);
+        .catch((error) => {
+            // console.error('Error updating average:', error);
             res.status(500).send('Error updating average');
         });
 });

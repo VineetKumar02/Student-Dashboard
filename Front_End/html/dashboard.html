@@ -16,10 +16,10 @@
     <link rel="stylesheet" href="../css/dashboard.css" />
     <link rel="stylesheet" href="../css/animation.css" />
     <link rel="stylesheet" href="../css/nav-styles.css" />
+    <link rel="stylesheet" href="../css/toast.css" />
 
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
-    <!-- <script src="../js/dashboard.js"></script> -->
 
     <title>DashBoard</title>
 </head>
@@ -198,6 +198,36 @@
         </div>
     </div>
 
+    <!-- The Toast Notification -->
+    <div>
+        <div class="toast success">
+            <div class="toast-content">
+                <i class="fa-solid fa-check"></i>
+
+                <div class="message">
+                    <span class="text text-1">Success</span>
+                    <span id="message" class="text text-2"></span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close"></i>
+
+            <div class="progress"></div>
+        </div>
+
+        <div class="toast error">
+            <div class="toast-content">
+                <i class="fa-solid fa-xmark"></i>
+
+                <div class="message">
+                    <span class="text text-1">Error</span>
+                    <span class="text text-2"></span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close"></i>
+
+            <div class="progress"></div>
+        </div>
+    </div>
 
     <!-- Wrapper for animation area -->
     <div class="animation-area">
@@ -217,6 +247,7 @@
 
 </body>
 
+<script src="../js/toast.js"></script>
 <script src="../js/dashboard.js"></script>
 <script src="../js/navbar.js"></script>
 

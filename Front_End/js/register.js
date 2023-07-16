@@ -36,7 +36,7 @@ app.controller('registerController', ($scope, $http, messageService) => {
 
     $scope.submitForm = () => {
         if ($scope.validateForm()) {
-            console.log("Form is valid");
+            // console.log("Form is valid");
 
             // Create a data object to send to the server
             var data = {
@@ -60,9 +60,9 @@ app.controller('registerController', ($scope, $http, messageService) => {
                     }, 3000);
 
                 })
-                .catch(err => {
-                    console.log("Error adding data to MongoDB:", err);
-                    showErrorToast(err.data);
+                .catch(error => {
+                    // console.log("Error adding data to MongoDB:", error);
+                    showErrorToast(error.data);
                 });
         }
     }

@@ -25,9 +25,9 @@ app.controller("signInController", ($scope, $http) => {
             location.href = `dashboard`;
           }, 2500);
         })
-        .catch(err => {
-          console.error("Error:-\n", err);
-          showErrorToast(err.data);
+        .catch(error => {
+          // console.error("Error:-\n", error);
+          showErrorToast(error.data);
         });
     } else {
 
@@ -48,7 +48,7 @@ app.controller("signUpController", ($scope, $http) => {
 
       $http.post('/signup', { digitalid: $scope.digitalid, password: $scope.pass2 })
         .then(response => {
-          console.log(response.data);
+          // console.log(response.data);
           showSuccessToast(response.data);
 
           // Add Digital Id to Session Storage to access it in any page
@@ -59,9 +59,9 @@ app.controller("signUpController", ($scope, $http) => {
           }, 2500);
 
         })
-        .catch(err => {
-          console.error("Error:-\n", err);
-          showErrorToast(err.data);
+        .catch(error => {
+          // console.error("Error:-\n", error);
+          showErrorToast(error.data);
         });
 
 

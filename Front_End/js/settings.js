@@ -40,7 +40,8 @@ app.controller("settingsController", ($scope, $http) => {
             // console.log($scope.student);
         })
         .catch(error => {
-            console.error('Error:', error);
+            // console.error('Error:', error);
+            showErrorToast(error.data);
         });
 });
 
@@ -62,8 +63,8 @@ app.controller("accountController", function ($scope, $http) {
                 showSuccessToast("Account updated successfully!");
             })
             .catch(error => {
-                console.error('Error:', error);
-                showErrorToast(error);
+                // console.error('Error:', error);
+                showErrorToast(error.data);
                 // showErrorToast("Error updating account!");
             });
     };
@@ -86,7 +87,8 @@ app.controller('academicController', function ($scope, $http) {
             // console.log($scope.subjects);
         })
         .catch(error => {
-            console.error('Error:', error);
+            // console.error('Error:', error);
+            showErrorToast(error.data);
         });
 
     $http.post('/getAccount', { digitalid: $scope.digitalid })
@@ -112,7 +114,7 @@ app.controller('academicController', function ($scope, $http) {
 
         })
         .catch(error => {
-            console.error('Error:', error);
+            // console.error('Error:', error);
         });
 
 
@@ -136,7 +138,6 @@ app.controller('academicController', function ($scope, $http) {
             $scope.sem_view = false;
         }
         else if ($scope.select_exam == "sem") {
-            // console.log("sem");
             $scope.sem_view = true;
             $scope.cat_view = false;
         }
@@ -151,9 +152,8 @@ app.controller('academicController', function ($scope, $http) {
                 showSuccessToast("Marks updated successfully!");
             })
             .catch(error => {
-                console.error('Error:', error);
-                showErrorToast(error);
-                // showErrorToast("Error updating marks!");
+                // console.error('Error:', error);
+                showErrorToast(error.data);
             });
     };
 
@@ -179,9 +179,9 @@ app.controller('passwordController', function ($scope, $http) {
                 $scope.newpass = "";
                 $scope.confirmnewpass = "";
             })
-            .catch(err => {
-                console.error("Error:-\n", err);
-                showErrorToast(err.data.message);
+            .catch(error => {
+                // console.error("Error:-\n", error);
+                showErrorToast(error.data);
             });
     };
 
