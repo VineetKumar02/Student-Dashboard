@@ -4,8 +4,10 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+require('dotenv').config();
 
 const app = express();
+const PORT = process.env.PORT || 4000;
 
 // Middleware
 app.use(cors());
@@ -15,7 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve the static files (CSS, JS, images)
 app.use(express.static(path.join(__dirname, '../Front_End')));
-
 const publicPath = path.join(__dirname, '../Front_End/html');
 
 // Serve the login.html file as the default page
@@ -33,22 +34,30 @@ htmlFiles.forEach(file => {
 
 
 // Start the server
-const port = 4000;
-app.listen(port, () => {
-    console.log(`Server listening on http://localhost:${port}/`);
+app.listen(PORT, () => {
+    console.log(`Server listening on http://localhost:${PORT}/`);
 });
 
 
+
 // Connect to MongoDB
-const dbURl = "mongodb+srv://studentdashboard:OTEP4gg3Mg74ZIO8@cluster0.8eu1vbk.mongodb.net/";
+mongoose.set('strictQuery', false);
+
 const connectionParams = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 };
 
-mongoose.connect(dbURl, connectionParams)
-    .then(() => console.info('Connected to MongoDB'))
-    .catch((err) => console.error('Could not connect to MongoDB:\n', err));
+
+(async () => {
+    try {
+        await mongoose.connect(process.env.MONGO_URI, connectionParams);
+        console.log('Connected to MongoDB');
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error.message);
+        process.exit(1);
+    }
+})();
 
 const { Decimal128 } = mongoose;
 
