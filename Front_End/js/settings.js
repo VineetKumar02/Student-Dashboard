@@ -34,7 +34,7 @@ app.controller("settingsController", ($scope, $http) => {
 
     $scope.message = "";
 
-    $http.post('http://localhost:4000/getAccount', { digitalid: $scope.digitalid })
+    $http.post('/getAccount', { digitalid: $scope.digitalid })
         .then(response => {
             $scope.student = response.data;
             // console.log($scope.student);
@@ -56,7 +56,7 @@ app.controller('navController', ($scope, $location) => {
 app.controller("accountController", function ($scope, $http) {
 
     $scope.submitAccountForm = function () {
-        $http.put('http://localhost:4000/updateAccount', $scope.student)
+        $http.put('/updateAccount', $scope.student)
             .then(response => {
                 // console.log(response.data);
                 showSuccessToast("Account updated successfully!");
@@ -80,7 +80,7 @@ app.controller("accountController", function ($scope, $http) {
 
 app.controller('academicController', function ($scope, $http) {
 
-    $http.get('http://localhost:4000/getSubjects')
+    $http.get('/getSubjects')
         .then(response => {
             $scope.subjects = response.data[$scope.student.semester];
             // console.log($scope.subjects);
@@ -89,7 +89,7 @@ app.controller('academicController', function ($scope, $http) {
             console.error('Error:', error);
         });
 
-    $http.post('http://localhost:4000/getAccount', { digitalid: $scope.digitalid })
+    $http.post('/getAccount', { digitalid: $scope.digitalid })
         .then(response => {
             $scope.student = response.data;
             // console.log($scope.student);
@@ -145,7 +145,7 @@ app.controller('academicController', function ($scope, $http) {
 
     $scope.submitAcademicForm = function (event) {
         event.preventDefault();
-        $http.put('http://localhost:4000/updateAcademic', $scope.student)
+        $http.put('/updateAcademic', $scope.student)
             .then(response => {
                 // console.log(response.data);
                 showSuccessToast("Marks updated successfully!");
@@ -171,7 +171,7 @@ app.controller('passwordController', function ($scope, $http) {
 
         var data = { digitalid: $scope.digitalid, oldpass: $scope.oldpass, newpass: $scope.newpass, confirmnewpass: $scope.confirmnewpass };
 
-        $http.post('http://localhost:4000/updatePassword', data)
+        $http.post('/updatePassword', data)
             .then(response => {
                 // console.log(response.data);
                 showSuccessToast("Password updated successfully!");
