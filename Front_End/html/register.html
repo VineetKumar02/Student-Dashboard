@@ -25,7 +25,9 @@
 </head>
 
 <body ng-app="myApp">
+
     <div class="container">
+
         <img class="ssn-logo" src="../images/ssn-logo.png" alt="ssn logo" />
         <div class="title">Registration</div>
         <div class="content">
@@ -119,32 +121,34 @@
 
 
     <!-- The Toast Notification -->
-    <div class="toast success">
-        <div class="toast-content">
-            <i class="fa-solid fa-check"></i>
+    <div>
+        <div class="toast success">
+            <div class="toast-content">
+                <i class="fa-solid fa-check"></i>
 
-            <div class="message">
-                <span class="text text-1">Success</span>
-                <span id="message" class="text text-2"></span>
+                <div class="message">
+                    <span class="text text-1">Success</span>
+                    <span id="message" class="text text-2"></span>
+                </div>
             </div>
+            <i class="fa-solid fa-xmark close"></i>
+
+            <div class="progress progressfull"></div>
         </div>
-        <i class="fa-solid fa-xmark close"></i>
 
-        <div class="progress progressfull"></div>
-    </div>
+        <div class="toast error">
+            <div class="toast-content">
+                <i class="fa-solid fa-xmark"></i>
 
-    <div class="toast error">
-        <div class="toast-content">
-            <i class="fa-solid fa-xmark"></i>
-
-            <div class="message">
-                <span class="text text-1">Error</span>
-                <span class="text text-2"></span>
+                <div class="message">
+                    <span class="text text-1">Error</span>
+                    <span class="text text-2"></span>
+                </div>
             </div>
-        </div>
-        <i class="fa-solid fa-xmark close"></i>
+            <i class="fa-solid fa-xmark close"></i>
 
-        <div class="progress"></div>
+            <div class="progress"></div>
+        </div>
     </div>
 
 

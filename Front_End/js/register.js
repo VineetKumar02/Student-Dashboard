@@ -3,12 +3,11 @@ app = angular.module('myApp', []);
 
 app.controller('registerController', ($scope, $http, messageService) => {
 
+    // To get digital id from sesion storage. If not present, go to login page
     if (!sessionStorage.getItem('digitalId')) {
         location.href = "login";
     }
     $scope.digitalid = sessionStorage.getItem('digitalId');
-
-
     $scope.message = messageService.getMessage();
 
 
@@ -52,7 +51,7 @@ app.controller('registerController', ($scope, $http, messageService) => {
             // Send a POST request to the server to add data to the database
             $http.post('/register', data)
                 .then(response => {
-                    // console.log("Data added to MongoDB:", response);
+                    // console.log(response.data);
                     showSuccessToast(response.data);
 
                     setTimeout(() => {
@@ -61,7 +60,7 @@ app.controller('registerController', ($scope, $http, messageService) => {
 
                 })
                 .catch(error => {
-                    // console.log("Error adding data to MongoDB:", error);
+                    // console.log(error);
                     showErrorToast(error.data);
                 });
         }

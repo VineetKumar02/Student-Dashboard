@@ -197,11 +197,11 @@ app.post('/register', (req, res) => {
 
 // GET request to set Subjects Details
 app.get('/getSubjects', (req, res) => {
+
     fs.readFile('../Database/sem_subjects.json', 'utf8', (error, data) => {
         if (error) {
             // console.error('Error reading subjects file:', error);
             res.status(500).send('Error reading subjects file');
-            return;
         }
 
         try {
@@ -239,6 +239,7 @@ app.post('/getAccount', (req, res) => {
 
 // PUT request to update the Account Details
 app.put('/updateAccount', (req, res) => {
+
     const { digitalid } = req.body;
 
     Student.findOneAndUpdate({ digitalid: digitalid },
@@ -301,28 +302,30 @@ app.post('/updatePassword', (req, res) => {
         .then((user) => {
             if (!user) {
                 // console.error('User not found in database');
-                res.status(404).send({ message: 'User not found in database' });
+                res.status(404).send('User not found in database');
             }
-            if (user.password !== oldpass) {
+            else if (user.password !== oldpass) {
                 // console.error('Old password does not match');
-                res.status(401).send({ message: 'Old password does not match' });
+                res.status(401).send('Old password does not match');
             }
-            if (newpass !== confirmnewpass) {
+            else if (newpass !== confirmnewpass) {
                 // console.error('New password and confirm new password do not match');
-                res.status(400).send({ message: 'New password and confirm new password do not match' });
+                res.status(400).send('New password and confirm new password do not match');
             }
+            else {
 
-            // Update user's password in database
-            user.password = newpass;
-            user.save()
-                .then(() => {
-                    // console.log('Password updated successfully');
-                    res.status(200).send('Password updated successfully');
-                })
-                .catch((error) => {
-                    // console.error('Error updating password in database:', error);
-                    res.status(500).send('Error updating password in database');
-                });
+                // Update user's password in database
+                user.password = newpass;
+                user.save()
+                    .then(() => {
+                        // console.log('Password updated successfully');
+                        res.status(200).send('Password updated successfully');
+                    })
+                    .catch((error) => {
+                        // console.error('Error updating password in database:', error);
+                        res.status(500).send('Error updating password in database');
+                    });
+            }
         })
         .catch((error) => {
             // console.error('Error finding user in database:', error);
@@ -360,6 +363,7 @@ app.post('/updateGPA', (req, res) => {
 
 // POST request to update CGPA Details
 app.post('/updateCGPA', function (req, res) {
+
     const { digitalid, sem_gpa, cgpa } = req.body;
 
     Student.findOneAndUpdate({ digitalid: digitalid }, {
@@ -391,7 +395,6 @@ app.post('/updateAverage', (req, res) => {
         avg_attendance: avg2,
         overall_avg_attendance: avg3,
         cgpa: avg4
-
     }, { new: true })
         .then((updatedStudent) => {
             if (updatedStudent) {

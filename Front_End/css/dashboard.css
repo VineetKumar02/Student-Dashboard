@@ -93,7 +93,6 @@ body {
 }
 
 .details {
-    width: 325px;
     padding: 20px;
     border-radius: 15px;
     text-decoration: none;
@@ -104,6 +103,13 @@ body {
 .details:hover {
     transition: all 0.2s ease-out;
     transform: translateY(-10px);
+}
+
+.details.small {
+    width: 260px;
+}
+.details.large {
+    width: 450px;
 }
 
 .details span {

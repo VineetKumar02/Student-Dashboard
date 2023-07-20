@@ -73,7 +73,8 @@ app.controller("signUpController", ($scope, $http) => {
   };
 });
 
-app.directive("compareTo", () => {
+
+app.directive("compareTo", function () {
   return {
     require: "ngModel",
     scope:

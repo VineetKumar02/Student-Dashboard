@@ -1,59 +1,50 @@
 // Toast Notification
-const toast = document.querySelectorAll(".toast"),
-    closeIcon = document.querySelectorAll(".close"),
-    progress = document.querySelectorAll(".progress"),
-    message_text = document.querySelectorAll(".text-2");
+const toast = document.querySelectorAll(".toast");
+const closeIcon = document.querySelectorAll(".close");
+const progress = document.querySelectorAll(".progress");
+const messageText = document.querySelectorAll(".text-2");
 
-let timer1, timer2;
+let timer;
 
 function showSuccessToast(message) {
+    hideAllToasts();
     toast[0].classList.add("active");
     progress[0].classList.add("active");
-    message_text[0].innerText = message;
+    messageText[0].innerText = message;
 
-    timer1 = setTimeout(() => {
-        toast[0].classList.remove("active");
-    }, 4000); //1s = 1000 milliseconds
-
-    timer2 = setTimeout(() => {
-        progress[0].classList.remove("active");
-        // window.location.reload();
-    }, 4300);
+    timer = setTimeout(() => {
+        closeToast(0);
+    }, 4000); // 4 seconds
 }
 
 function showErrorToast(message) {
+    hideAllToasts();
     toast[1].classList.add("active");
     progress[1].classList.add("active");
-    message_text[1].innerText = message;
+    messageText[1].innerText = message;
 
-    timer1 = setTimeout(() => {
-        toast[1].classList.remove("active");
-    }, 4000); //1s = 1000 milliseconds
-
-    timer2 = setTimeout(() => {
-        progress[1].classList.remove("active");
-    }, 4300);
+    timer = setTimeout(() => {
+        closeToast(1);
+    }, 4000); // 4 seconds
 }
 
+function closeToast(index) {
+    toast[index].classList.remove("active");
+    progress[index].classList.remove("active");
+    clearTimeout(timer);
+}
+
+function hideAllToasts() {
+    toast.forEach((toastItem, index) => {
+        toastItem.classList.remove("active");
+        progress[index].classList.remove("active");
+    });
+}
 
 closeIcon[0].addEventListener("click", () => {
-    toast[0].classList.remove("active");
-
-    setTimeout(() => {
-        progress[0].classList.remove("active");
-    }, 300);
-
-    clearTimeout(timer1);
-    clearTimeout(timer2);
+    closeToast(0)
 });
 
 closeIcon[1].addEventListener("click", () => {
-    toast[1].classList.remove("active");
-
-    setTimeout(() => {
-        progress[1].classList.remove("active");
-    }, 300);
-
-    clearTimeout(timer1);
-    clearTimeout(timer2);
+    closeToast(1);
 });

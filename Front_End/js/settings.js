@@ -1,10 +1,12 @@
 var app = angular.module("myApp", ["ngRoute"]);
 
+// Navbar Component is included here
 app.component('navbar', {
     templateUrl: 'html/navbar.html',
     controller: 'NavbarController'
 });
 
+// Code for internal client-side routing
 app.config(($routeProvider) => {
     $routeProvider
         .when("/account", {
@@ -27,17 +29,16 @@ app.config(($routeProvider) => {
 
 app.controller("settingsController", ($scope, $http) => {
 
+    // To get digital id from sesion storage. If not present, go to login page
     if (!sessionStorage.getItem('digitalId')) {
         location.href = "login";
     }
     $scope.digitalid = sessionStorage.getItem('digitalId');
-
     $scope.message = "";
 
     $http.post('/getAccount', { digitalid: $scope.digitalid })
         .then(response => {
             $scope.student = response.data;
-            // console.log($scope.student);
         })
         .catch(error => {
             // console.error('Error:', error);
@@ -45,7 +46,7 @@ app.controller("settingsController", ($scope, $http) => {
         });
 });
 
-
+// For updating active class on the tab links
 app.controller('navController', ($scope, $location) => {
     $scope.isActive = function (route) {
         return route === $location.path();
@@ -79,23 +80,13 @@ app.controller("accountController", function ($scope, $http) {
 
 
 
-app.controller('academicController', function ($scope, $http) {
-
-    $http.get('/getSubjects')
-        .then(response => {
-            $scope.subjects = response.data[$scope.student.semester];
-            // console.log($scope.subjects);
-        })
-        .catch(error => {
-            // console.error('Error:', error);
-            showErrorToast(error.data);
-        });
+app.controller('academicController', function ($scope, $http, $q) {
 
     $http.post('/getAccount', { digitalid: $scope.digitalid })
         .then(response => {
             $scope.student = response.data;
-            // console.log($scope.student);
 
+            // Assign CAT Marks & Attendance
             $scope.cat1_marks = $scope.student.cat1.marks;
             $scope.cat2_marks = $scope.student.cat2.marks;
             $scope.cat3_marks = $scope.student.cat3.marks;
@@ -104,6 +95,7 @@ app.controller('academicController', function ($scope, $http) {
             $scope.cat2_attendance = $scope.student.cat2.attendance;
             $scope.cat3_attendance = $scope.student.cat3.attendance;
 
+            // Set Default values to CAT-1
             $scope.marks = $scope.cat1_marks;
             $scope.attendance = $scope.cat1_attendance;
             $scope.sem = $scope.student.sem_gpa;
@@ -112,9 +104,24 @@ app.controller('academicController', function ($scope, $http) {
             $scope.sem_view = false;
             $scope.cat_view = true;
 
+
+            // Code to be run after data is fetched
+            $q.when()
+                .then(() => {
+                    $http.get('/getSubjects')
+                        .then(response => {
+                            $scope.subjects = response.data[$scope.student.semester];
+                        })
+                        .catch(error => {
+                            // console.error('Error:', error);
+                            showErrorToast(error);
+                        });
+                });
+
         })
         .catch(error => {
             // console.error('Error:', error);
+            showErrorToast(error.data);
         });
 
 
@@ -145,7 +152,10 @@ app.controller('academicController', function ($scope, $http) {
 
 
     $scope.submitAcademicForm = function (event) {
+
+        // To prevent page from reloading
         event.preventDefault();
+
         $http.put('/updateAcademic', $scope.student)
             .then(response => {
                 // console.log(response.data);
@@ -174,7 +184,7 @@ app.controller('passwordController', function ($scope, $http) {
         $http.post('/updatePassword', data)
             .then(response => {
                 // console.log(response.data);
-                showSuccessToast("Password updated successfully!");
+                showSuccessToast(response.data);
                 $scope.oldpass = "";
                 $scope.newpass = "";
                 $scope.confirmnewpass = "";

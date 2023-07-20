@@ -1,5 +1,6 @@
 var app = angular.module('myApp', []);
 
+// Navbar Component is included here
 app.component('navbar', {
     templateUrl: 'html/navbar.html',
     controller: 'NavbarController'
@@ -7,11 +8,13 @@ app.component('navbar', {
 
 app.controller('calculatorController', ($scope, $http, $q) => {
 
+    // To get digital id from sesion storage. If not present, go to login page
     if (!sessionStorage.getItem('digitalId')) {
         location.href = "login";
     }
     $scope.digitalid = sessionStorage.getItem('digitalId');
 
+    // Set default values
     $scope.grade = [];
     $scope.semCredits = [];
 
@@ -25,6 +28,7 @@ app.controller('calculatorController', ($scope, $http, $q) => {
     $scope.showGpa = true;
     $scope.showCgpa = false;
 
+    // Functions to switch layout between GPA & CGPA
     $scope.showGpaLayout = () => {
         $scope.showGpa = true;
         $scope.showCgpa = false;
@@ -35,6 +39,7 @@ app.controller('calculatorController', ($scope, $http, $q) => {
         $scope.showCgpa = true;
     };
 
+    // For mapping semester from string to number
     $scope.theory = {
         "I": 1,
         "II": 2,
@@ -47,37 +52,35 @@ app.controller('calculatorController', ($scope, $http, $q) => {
     };
 
 
+    $http.post('/getAccount', { digitalid: $scope.digitalid })
+        .then(response => {
+            $scope.student = response.data;
+            $scope.semester = $scope.student.semester;
+            $scope.semdone = $scope.theory[$scope.semester];
+
+            // Run code after data is fetched
+            $q.when()
+                .then(() => {
+                    $scope.updateSubjects();
+                });
+        })
+        .catch(error => {
+            // console.error(error);
+            showErrorToast(error.data);
+        });
+
+
     $scope.updateSubjects = () => {
         $http.get('/getSubjects')
             .then(response => {
                 $scope.subjects = response.data[$scope.semester];
                 $scope.sem_credits = response.data.sem_credits;
-                // console.log($scope.subjects);
-                // console.log($scope.sem_credits);
             })
             .catch(error => {
                 // console.error('Error:', error);
                 showErrorToast(error.data);
             });
     };
-
-
-    $http.post('/getAccount', { digitalid: $scope.digitalid })
-        .then(response => {
-            $scope.student = response.data;
-            $scope.semester = $scope.student.semester;
-            $scope.semdone = $scope.theory[$scope.semester];
-            // Run code after data is fetched
-            $q.when()
-                .then(() => {
-                    // Code to be run after data is fetched
-                    $scope.updateSubjects();
-                });
-        })
-        .catch(error => {
-            console.error(error);
-            showErrorToast(error.data);
-        });
 
 
     $scope.calculateGPA = () => {
@@ -101,7 +104,7 @@ app.controller('calculatorController', ($scope, $http, $q) => {
 
     $scope.updateGPA = () => {
         $scope.student.sem_gpa[$scope.theory[$scope.semester] - 1] = parseFloat($scope.gpa_result);
-        // console.log($scope.student.sem_gpa);
+
         $http.post('/updateGPA', { digitalid: $scope.digitalid, sem_gpa: $scope.student.sem_gpa })
             .then(response => {
                 // console.log(response.data);
@@ -135,8 +138,7 @@ app.controller('calculatorController', ($scope, $http, $q) => {
 
     $scope.updateCGPA = () => {
         $scope.student.cgpa = $scope.cgpa_result;
-        // console.log($scope.student.sem_gpa);
-        // console.log($scope.student.cgpa);
+        
         $http.post('/updateCGPA', { digitalid: $scope.digitalid, sem_gpa: $scope.student.sem_gpa, cgpa: $scope.student.cgpa })
             .then(response => {
                 // console.log(response.data);
