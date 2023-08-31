@@ -105,6 +105,22 @@ const Student = mongoose.model('Student', studentSchema);    // Create the Stude
 
 
 
+// Define the schema for subjects
+const SubjectSchema = new mongoose.Schema({
+    I: [Object],
+    II: [Object],
+    III: [Object],
+    IV: [Object],
+    V: [Object],
+    VI: [Object],
+    VII: [Object],
+    VIII: [Object],
+    theory_count: Array,
+    sem_credits: Array
+}, { collection: 'subjects' });     // Set collection name to 'subjects'
+
+const Subject = mongoose.model('Subject', SubjectSchema);    // Create the Subject model
+
 
 // Code for all methods
 
@@ -196,22 +212,40 @@ app.post('/register', (req, res) => {
 
 
 // GET request to set Subjects Details
+// app.get('/getSubjects', (req, res) => {
+
+//     fs.readFile('../Database/sem_subjects.json', 'utf8', (error, data) => {
+//         if (error) {
+//             // console.error('Error reading subjects file:', error);
+//             res.status(500).send('Error reading subjects file');
+//         }
+
+//         try {
+//             const subjects = JSON.parse(data);
+//             res.status(200).json(subjects);
+//         } catch (error) {
+//             // console.error('Error parsing subjects JSON:', error);
+//             res.status(500).send('Error parsing subjects JSON');
+//         }
+//     });
+// });
+
+// GET request to set Subjects Details
 app.get('/getSubjects', (req, res) => {
 
-    fs.readFile('../Database/sem_subjects.json', 'utf8', (error, data) => {
-        if (error) {
-            // console.error('Error reading subjects file:', error);
-            res.status(500).send('Error reading subjects file');
-        }
-
-        try {
-            const subjects = JSON.parse(data);
-            res.status(200).json(subjects);
-        } catch (error) {
-            // console.error('Error parsing subjects JSON:', error);
-            res.status(500).send('Error parsing subjects JSON');
-        }
-    });
+    Subject.findOne({})
+        .then((result) => {
+            if (result) {
+                res.status(200).send(result);    // Send the Subject Details as JSON response
+            } else {
+                console.error('No subjects found:', err);
+                res.status(404).send('No subjects found');
+            }
+        })
+        .catch((err) => {
+            console.error('Error retrieving subjects:', err);
+            res.status(500).send('Error retrieving subjects');
+        });
 });
 
 
