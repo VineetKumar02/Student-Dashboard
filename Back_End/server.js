@@ -105,21 +105,7 @@ const Student = mongoose.model('Student', studentSchema);    // Create the Stude
 
 
 
-// Define the schema for subjects
-const SubjectSchema = new mongoose.Schema({
-    I: [Object],
-    II: [Object],
-    III: [Object],
-    IV: [Object],
-    V: [Object],
-    VI: [Object],
-    VII: [Object],
-    VIII: [Object],
-    theory_count: Array,
-    sem_credits: Array
-}, { collection: 'subjects' });     // Set collection name to 'subjects'
-
-const Subject = mongoose.model('Subject', SubjectSchema);    // Create the Subject model
+ 
 
 
 // Code for all methods
