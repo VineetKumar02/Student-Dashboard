@@ -66,17 +66,37 @@ Before getting started with the Student Dashboard project, make sure you have th
     2. Choose "Download ZIP."
     3. Extract the downloaded ZIP file to a location of your choice.
 
-2. **Server Setup:**
+2. **Configure Environment Variables:**
+
+   - Create a `.env` file inside the "Back_End" directory with the following content:
+
+        ```
+        MONGO_URI=YOUR_MONGODB_URI_FROM_MONGODB_ATLAS
+        PORT=YOUR_PREFERRED_PORT_NUMBER
+        ```
+
+   - Replace `YOUR_MONGODB_URI_FROM_MONGODB_ATLAS` with your actual MongoDB URI obtained from MongoDB Atlas by [Follow this Guide](https://www.mongodb.com/docs/guides/atlas/connection-string/), and replace `YOUR_PREFERRED_PORT_NUMBER` with your preferred port number.
+
+3. **Server Setup:**
 
    - Navigate to the "Back_End" directory and install required dependencies by using the following commands:
    
         ```bash
-        cd Back_End
         npm install
         npm start
         ```
 
    - The server should start, and you will see a link in the console. Open the provided link in your web browser.
+
+4. **Development Setup:**
+
+   - If you want to use nodemon for development purposes, you can run:
+
+      ```bash
+      npm run dev
+      ```
+
+Now, you've successfully configured the environment variables and set up the server for the Student Dashboard project. Enjoy exploring and developing this academic dashboard!
 
 ## Usage
 

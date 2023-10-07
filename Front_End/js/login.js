@@ -5,9 +5,15 @@ app = angular.module('myApp', []);
 // To validate the Sign In form
 app.controller("signInController", ($scope, $http) => {
 
+  // Default values to login (Only for Demo Version) - Remove for Production purpose
+  $scope.digitalid = 2010502;
+  $scope.pass1 = 12345678;
+
+
   $scope.formSubmitted = false;
 
   $scope.submitSignInForm = () => {
+
     if ($scope.signInForm.$valid) {
 
       // Form is valid, do something with the data
