@@ -35,7 +35,6 @@ To begin using the Student Dashboard project, follow these steps:
 Before getting started with the Student Dashboard project, make sure you have the following prerequisites:
 
 - **Node.js:** If you don't have Node.js installed, you can download and install it from [the official Node.js website](https://nodejs.org/).
-
 - An integrated development environment (IDE) of your choice.
 - A modern web browser to view the application.
 
